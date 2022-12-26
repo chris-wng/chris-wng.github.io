@@ -1,6 +1,468 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Thymeleaf</title>
+    <url>/2022/12/26/Thymeleaf/</url>
+    <content><![CDATA[<h3 id="为什么是Thymeleaf"><a href="#为什么是Thymeleaf" class="headerlink" title="为什么是Thymeleaf"></a>为什么是Thymeleaf</h3><p>目前Java比较流行的模板引擎有Thymeleaf和Freemarker，Thymeleaf的话更适合当前的人员分工问题，回忆一下以前的Jsp页面，必须要动态渲染才能看到真实的效果，写页面的和写后端的分工不太明确</p>
+<p>Thymeleaf是动静分离的，页面中的动态标签是需要传递有数据的时候才会渲染，不然就是原本默认的静态的样子</p>
+<p>举一个例子<code>th:text=&quot;$&#123;title&#125;&quot;</code>是一个动态标签，当传递了title这个数据，页面就会渲染这个标签，如果没有传递这个参数，就会显示原本的网页结构<code>&lt;title&gt;默认的标题&lt;/title&gt;</code>,所以开发静态页面的时候的是前端工程师完全可以独立进行的</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;ch&quot;</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">title</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;title&#125;&quot;</span>&gt;</span>默认的标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>thymeleaf的语法和vue是有点类似的，很容易上手，下面就跟着我快速入门吧！</p>
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>直接创建一个springboot的模板项目就行了</p>
+<p><img src="https://img.lookroot.cn/blog/202101/23/141357-772186.png" alt="image-20210123141356383"></p>
+<p>需要引入的依赖文件</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="开启自动编译"><a href="#开启自动编译" class="headerlink" title="开启自动编译"></a>开启自动编译</h3><p>首先开发模式禁用页面缓存<code>application.yml</code></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8001</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">thymeleaf:</span></span><br><span class="line">    <span class="attr">cache:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>然后修改一下运行配置</p>
+<p><img src="https://img.lookroot.cn/blog/202101/20/003357-326412.png" alt="image-20210120003356158"></p>
+<p><img src="https://img.lookroot.cn/blog/202101/20/003419-309294.png" alt="image-20210120003419153"></p>
+<p>此时我们修改了页面文件后，直接刷新就能看到效果了</p>
+<h3 id="创建IDEA的模板"><a href="#创建IDEA的模板" class="headerlink" title="创建IDEA的模板"></a>创建IDEA的模板</h3><p>我们可以给IDEA创建一个页面模板，这样每次创建页面文件就带上基本的结构了</p>
+<p><img src="https://img.lookroot.cn/blog/202101/20/003911-716212.png" alt="image-20210120003910383"></p>
+<p>模板内容</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;ch&quot;</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这样我们在文件夹鼠标右键就多了一个选择</p>
+<p><img src="https://img.lookroot.cn/blog/202101/20/004016-830999.png" alt="image-20210120004015485"></p>
+<h2 id="Thymeleaf常用语法"><a href="#Thymeleaf常用语法" class="headerlink" title="Thymeleaf常用语法"></a>Thymeleaf常用语法</h2><h3 id="语法标记"><a href="#语法标记" class="headerlink" title="语法标记"></a>语法标记</h3><p><img src="https://img.lookroot.cn/blog/202101/24/000024-245091.png" alt="image-20210124000024217"></p>
+<h3 id="th-text，th-content"><a href="#th-text，th-content" class="headerlink" title="th:text，th:content"></a>th:text，th:content</h3><p><code>th:text</code>可以动态替换标签原本的内容</p>
+<p>在<code>templates</code>创建页面<code>index.html</code>,<code>$&#123;&#125;</code>里面可以写</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;ch&quot;</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;title&#125;&quot;</span>&gt;</span>默认的标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>写一个测试控制器<code>IndexController</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">IndexController</span> &#123;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;/index&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">index</span><span class="params">(Model model)</span> &#123;</span><br><span class="line">        model.addAttribute(<span class="string">&quot;title&quot;</span>, <span class="string">&quot;传递的标题&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;index&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时如果我们直接打开<code>index.html</code>这个文件而不是通过SpringBoot的控制器去打开它</p>
+<p>看下源代码，可以发现动态标签是没有渲染出来的，这就是动静分离</p>
+<p><img src="https://img.lookroot.cn/blog/202101/23/175938-325132.png" alt="image-20210123175937168"></p>
+<p>然后我们通过控制器打开<code>http://localhost:8001/index</code>,看看源码</p>
+<p><img src="https://img.lookroot.cn/blog/202101/23/180038-251130.png" alt="image-20210123180037868"></p>
+<p>同理我们使用<code>th:content</code>标签来渲染页面描述和页面关键字，这是在昨天的实战里面讲到过的</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;title&#125;&quot;</span>&gt;</span>默认的标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;description&quot;</span> <span class="attr">th:content</span>=<span class="string">&quot;$&#123;description&#125;&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;keywords&quot;</span> <span class="attr">th:content</span>=<span class="string">&quot;$&#123;keywords&#125;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/index&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">index</span><span class="params">(Model model)</span> &#123;</span><br><span class="line">    model.addAttribute(<span class="string">&quot;title&quot;</span>, <span class="string">&quot;传递的标题&quot;</span>);</span><br><span class="line">    model.addAttribute(<span class="string">&quot;description&quot;</span>, <span class="string">&quot;传递的描述&quot;</span>);</span><br><span class="line">    model.addAttribute(<span class="string">&quot;keywords&quot;</span>, <span class="string">&quot;传递的关键字&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;index&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>假如我们的 th:text 标签里面需要拼接字符串<code>$&#123;title&#125;</code>可以使用<code>||</code>来包裹</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">title</span> <span class="attr">th:text</span>=<span class="string">&quot;|lookroot-$&#123;title&#125;|&quot;</span>&gt;</span>默认的标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="支持渲染的属性"><a href="#支持渲染的属性" class="headerlink" title="支持渲染的属性"></a>支持渲染的属性</h3><p>这类属性很多，每个属性都针对特定的HTML5属性：</p>
+<table>
+<thead>
+<tr>
+<th><code>th:abbr</code></th>
+<th><code>th:accept</code></th>
+<th><code>th:accept-charset</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>th:accesskey</code></td>
+<td><code>th:action</code></td>
+<td><code>th:align</code></td>
+</tr>
+<tr>
+<td><code>th:alt</code></td>
+<td><code>th:archive</code></td>
+<td><code>th:audio</code></td>
+</tr>
+<tr>
+<td><code>th:autocomplete</code></td>
+<td><code>th:axis</code></td>
+<td><code>th:background</code></td>
+</tr>
+<tr>
+<td><code>th:bgcolor</code></td>
+<td><code>th:border</code></td>
+<td><code>th:cellpadding</code></td>
+</tr>
+<tr>
+<td><code>th:cellspacing</code></td>
+<td><code>th:challenge</code></td>
+<td><code>th:charset</code></td>
+</tr>
+<tr>
+<td><code>th:cite</code></td>
+<td><code>th:class</code></td>
+<td><code>th:classid</code></td>
+</tr>
+<tr>
+<td><code>th:codebase</code></td>
+<td><code>th:codetype</code></td>
+<td><code>th:cols</code></td>
+</tr>
+<tr>
+<td><code>th:colspan</code></td>
+<td><code>th:compact</code></td>
+<td><code>th:content</code></td>
+</tr>
+<tr>
+<td><code>th:contenteditable</code></td>
+<td><code>th:contextmenu</code></td>
+<td><code>th:data</code></td>
+</tr>
+<tr>
+<td><code>th:datetime</code></td>
+<td><code>th:dir</code></td>
+<td><code>th:draggable</code></td>
+</tr>
+<tr>
+<td><code>th:dropzone</code></td>
+<td><code>th:enctype</code></td>
+<td><code>th:for</code></td>
+</tr>
+<tr>
+<td><code>th:form</code></td>
+<td><code>th:formaction</code></td>
+<td><code>th:formenctype</code></td>
+</tr>
+<tr>
+<td><code>th:formmethod</code></td>
+<td><code>th:formtarget</code></td>
+<td><code>th:fragment</code></td>
+</tr>
+<tr>
+<td><code>th:frame</code></td>
+<td><code>th:frameborder</code></td>
+<td><code>th:headers</code></td>
+</tr>
+<tr>
+<td><code>th:height</code></td>
+<td><code>th:high</code></td>
+<td><code>th:href</code></td>
+</tr>
+<tr>
+<td><code>th:hreflang</code></td>
+<td><code>th:hspace</code></td>
+<td><code>th:http-equiv</code></td>
+</tr>
+<tr>
+<td><code>th:icon</code></td>
+<td><code>th:id</code></td>
+<td><code>th:inline</code></td>
+</tr>
+<tr>
+<td><code>th:keytype</code></td>
+<td><code>th:kind</code></td>
+<td><code>th:label</code></td>
+</tr>
+<tr>
+<td><code>th:lang</code></td>
+<td><code>th:list</code></td>
+<td><code>th:longdesc</code></td>
+</tr>
+<tr>
+<td><code>th:low</code></td>
+<td><code>th:manifest</code></td>
+<td><code>th:marginheight</code></td>
+</tr>
+<tr>
+<td><code>th:marginwidth</code></td>
+<td><code>th:max</code></td>
+<td><code>th:maxlength</code></td>
+</tr>
+<tr>
+<td><code>th:media</code></td>
+<td><code>th:method</code></td>
+<td><code>th:min</code></td>
+</tr>
+<tr>
+<td><code>th:name</code></td>
+<td><code>th:onabort</code></td>
+<td><code>th:onafterprint</code></td>
+</tr>
+<tr>
+<td><code>th:onbeforeprint</code></td>
+<td><code>th:onbeforeunload</code></td>
+<td><code>th:onblur</code></td>
+</tr>
+<tr>
+<td><code>th:oncanplay</code></td>
+<td><code>th:oncanplaythrough</code></td>
+<td><code>th:onchange</code></td>
+</tr>
+<tr>
+<td><code>th:onclick</code></td>
+<td><code>th:oncontextmenu</code></td>
+<td><code>th:ondblclick</code></td>
+</tr>
+<tr>
+<td><code>th:ondrag</code></td>
+<td><code>th:ondragend</code></td>
+<td><code>th:ondragenter</code></td>
+</tr>
+<tr>
+<td><code>th:ondragleave</code></td>
+<td><code>th:ondragover</code></td>
+<td><code>th:ondragstart</code></td>
+</tr>
+<tr>
+<td><code>th:ondrop</code></td>
+<td><code>th:ondurationchange</code></td>
+<td><code>th:onemptied</code></td>
+</tr>
+<tr>
+<td><code>th:onended</code></td>
+<td><code>th:onerror</code></td>
+<td><code>th:onfocus</code></td>
+</tr>
+<tr>
+<td><code>th:onformchange</code></td>
+<td><code>th:onforminput</code></td>
+<td><code>th:onhashchange</code></td>
+</tr>
+<tr>
+<td><code>th:oninput</code></td>
+<td><code>th:oninvalid</code></td>
+<td><code>th:onkeydown</code></td>
+</tr>
+<tr>
+<td><code>th:onkeypress</code></td>
+<td><code>th:onkeyup</code></td>
+<td><code>th:onload</code></td>
+</tr>
+<tr>
+<td><code>th:onloadeddata</code></td>
+<td><code>th:onloadedmetadata</code></td>
+<td><code>th:onloadstart</code></td>
+</tr>
+<tr>
+<td><code>th:onmessage</code></td>
+<td><code>th:onmousedown</code></td>
+<td><code>th:onmousemove</code></td>
+</tr>
+<tr>
+<td><code>th:onmouseout</code></td>
+<td><code>th:onmouseover</code></td>
+<td><code>th:onmouseup</code></td>
+</tr>
+<tr>
+<td><code>th:onmousewheel</code></td>
+<td><code>th:onoffline</code></td>
+<td><code>th:ononline</code></td>
+</tr>
+<tr>
+<td><code>th:onpause</code></td>
+<td><code>th:onplay</code></td>
+<td><code>th:onplaying</code></td>
+</tr>
+<tr>
+<td><code>th:onpopstate</code></td>
+<td><code>th:onprogress</code></td>
+<td><code>th:onratechange</code></td>
+</tr>
+<tr>
+<td><code>th:onreadystatechange</code></td>
+<td><code>th:onredo</code></td>
+<td><code>th:onreset</code></td>
+</tr>
+<tr>
+<td><code>th:onresize</code></td>
+<td><code>th:onscroll</code></td>
+<td><code>th:onseeked</code></td>
+</tr>
+<tr>
+<td><code>th:onseeking</code></td>
+<td><code>th:onselect</code></td>
+<td><code>th:onshow</code></td>
+</tr>
+<tr>
+<td><code>th:onstalled</code></td>
+<td><code>th:onstorage</code></td>
+<td><code>th:onsubmit</code></td>
+</tr>
+<tr>
+<td><code>th:onsuspend</code></td>
+<td><code>th:ontimeupdate</code></td>
+<td><code>th:onundo</code></td>
+</tr>
+<tr>
+<td><code>th:onunload</code></td>
+<td><code>th:onvolumechange</code></td>
+<td><code>th:onwaiting</code></td>
+</tr>
+<tr>
+<td><code>th:optimum</code></td>
+<td><code>th:pattern</code></td>
+<td><code>th:placeholder</code></td>
+</tr>
+<tr>
+<td><code>th:poster</code></td>
+<td><code>th:preload</code></td>
+<td><code>th:radiogroup</code></td>
+</tr>
+<tr>
+<td><code>th:rel</code></td>
+<td><code>th:rev</code></td>
+<td><code>th:rows</code></td>
+</tr>
+<tr>
+<td><code>th:rowspan</code></td>
+<td><code>th:rules</code></td>
+<td><code>th:sandbox</code></td>
+</tr>
+<tr>
+<td><code>th:scheme</code></td>
+<td><code>th:scope</code></td>
+<td><code>th:scrolling</code></td>
+</tr>
+<tr>
+<td><code>th:size</code></td>
+<td><code>th:sizes</code></td>
+<td><code>th:span</code></td>
+</tr>
+<tr>
+<td><code>th:spellcheck</code></td>
+<td><code>th:src</code></td>
+<td><code>th:srclang</code></td>
+</tr>
+<tr>
+<td><code>th:standby</code></td>
+<td><code>th:start</code></td>
+<td><code>th:step</code></td>
+</tr>
+<tr>
+<td><code>th:style</code></td>
+<td><code>th:summary</code></td>
+<td><code>th:tabindex</code></td>
+</tr>
+<tr>
+<td><code>th:target</code></td>
+<td><code>th:title</code></td>
+<td><code>th:type</code></td>
+</tr>
+<tr>
+<td><code>th:usemap</code></td>
+<td><code>th:value</code></td>
+<td><code>th:valuetype</code></td>
+</tr>
+<tr>
+<td><code>th:vspace</code></td>
+<td><code>th:width</code></td>
+<td><code>th:wrap</code></td>
+</tr>
+<tr>
+<td><code>th:xmlbase</code></td>
+<td><code>th:xmllang</code></td>
+<td><code>th:xmlspace</code></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>th:async</code></th>
+<th><code>th:autofocus</code></th>
+<th><code>th:autoplay</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>th:checked</code></td>
+<td><code>th:controls</code></td>
+<td><code>th:declare</code></td>
+</tr>
+<tr>
+<td><code>th:default</code></td>
+<td><code>th:defer</code></td>
+<td><code>th:disabled</code></td>
+</tr>
+<tr>
+<td><code>th:formnovalidate</code></td>
+<td><code>th:hidden</code></td>
+<td><code>th:ismap</code></td>
+</tr>
+<tr>
+<td><code>th:loop</code></td>
+<td><code>th:multiple</code></td>
+<td><code>th:novalidate</code></td>
+</tr>
+<tr>
+<td><code>th:nowrap</code></td>
+<td><code>th:open</code></td>
+<td><code>th:pubdate</code></td>
+</tr>
+<tr>
+<td><code>th:readonly</code></td>
+<td><code>th:required</code></td>
+<td><code>th:reversed</code></td>
+</tr>
+<tr>
+<td><code>th:scoped</code></td>
+<td><code>th:seamless</code></td>
+<td><code>th:selected</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="渲染对象"><a href="#渲染对象" class="headerlink" title="渲染对象"></a>渲染对象</h3><p>创建一个基本对象<code>UserVO</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserVO</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="keyword">private</span> Integer sex;</span><br><span class="line">    <span class="keyword">private</span> Boolean isVip;</span><br><span class="line">    <span class="keyword">private</span> Date createTime;</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; tags;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>新建一个方法<code>basic</code>，将user对象传输到页面中</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/basicTrain&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">basic</span><span class="params">(Model model)</span> &#123;</span><br><span class="line">    <span class="type">UserVO</span> <span class="variable">userVO</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserVO</span>();</span><br><span class="line">    userVO.setAge(<span class="number">21</span>);</span><br><span class="line">    userVO.setSex(<span class="number">1</span>);</span><br><span class="line">    userVO.setCreateTime(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">    userVO.setTags(Arrays.asList(<span class="string">&quot;Java&quot;</span>, <span class="string">&quot;PHP&quot;</span>, <span class="string">&quot;Node&quot;</span>));</span><br><span class="line">    userVO.setUsername(<span class="string">&quot;lookroot&quot;</span>);</span><br><span class="line">    model.addAttribute(<span class="string">&quot;user&quot;</span>, userVO);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;basic&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>新建<code>basic.html</code>，此时如果我们想渲染User这个对象的信息我们可以这样</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">	&lt;h2 th:text=<span class="string">&quot;$&#123;user.getUsername()&#125;&quot;</span>&gt;&lt;/h2&gt;</span><br><span class="line">	&lt;p th:text=<span class="string">&quot;$&#123;user.getAge()&#125;&quot;</span>&gt;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>也可以将User定义为临时变量，接着使用<code>*&#123;xxx&#125;</code>就能取到值了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;div th:object=<span class="string">&quot;$&#123;user&#125;&quot;</span>&gt;</span><br><span class="line">	&lt;h2 th:text=<span class="string">&quot;*&#123;username&#125;&quot;</span>&gt;&lt;/h2&gt;</span><br><span class="line">	&lt;p th:text=<span class="string">&quot;*&#123;age&#125;&quot;</span>&gt;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>还可以不使用get的方式，直接使用属性名</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;user.username&#125;&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="th-if"><a href="#th-if" class="headerlink" title="th:if"></a>th:if</h3><p><code>th:if</code>通过布尔值决定这个元素是否渲染</p>
+<p>比如：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">th:if</span>=<span class="string">&quot;$&#123;user.isVip&#125;&quot;</span>&gt;</span>会员<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="th-each"><a href="#th-each" class="headerlink" title="th:each"></a>th:each</h3><p><code>th:each</code>可以迭代循环出数据，前面我们User对象里面的tags是一个数组，我们来渲染一下</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">li</span> <span class="attr">th:each</span>=<span class="string">&quot;tag:$&#123;user.getTags()&#125;&quot;</span> </span></span><br><span class="line"><span class="tag">       <span class="attr">th:text</span>=<span class="string">&quot;$&#123;tag&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>状态变量在<code>th:each</code>属性中定义，并且包含以下数据：</p>
+<ul>
+<li>当前的<em>迭代索引</em>，从0开始。这是<code>index</code>属性。</li>
+<li>从1开始的当前<em>迭代索引</em>。这是<code>count</code>属性。</li>
+<li>迭代变量中元素的总数。这是<code>size</code>财产。</li>
+<li>每次迭代的<em>iter变量</em>。这是<code>current</code>财产。</li>
+<li>当前迭代是偶数还是奇数。这些是<code>even/odd</code>布尔属性。</li>
+<li>当前迭代是否是第一个。这是<code>first</code>布尔属性。</li>
+<li>当前迭代是否为最后一次。这是<code>last</code>布尔属性。</li>
+</ul>
+<h3 id="th-switch"><a href="#th-switch" class="headerlink" title="th:switch"></a>th:switch</h3><p><code>th:switch</code>选择语句</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:switch</span>=<span class="string">&quot;$&#123;user.getSex()&#125;&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">th:case</span>=<span class="string">&quot;&#x27;1&#x27;&quot;</span>&gt;</span>男<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">th:case</span>=<span class="string">&quot;&#x27;2&#x27;&quot;</span>&gt;</span>女<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">th:case</span>=<span class="string">&quot;*&quot;</span>&gt;</span>默认<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="url"><a href="#url" class="headerlink" title="url"></a>url</h3><p>如果在springboot中需要引入static目录下的静态资源可以使用<code>@&#123;xxx&#125;</code>的方式</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">th:href</span>=<span class="string">&quot;@&#123;/app.css&#125;&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="JavaScript动态渲染"><a href="#JavaScript动态渲染" class="headerlink" title="JavaScript动态渲染"></a>JavaScript动态渲染</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">th:inline</span>=<span class="string">&quot;javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> user = <span class="comment">/*[[$&#123;user&#125;]]*/</span> &#123;&#125;;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(user);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>同理css也是可以的</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">th:inline</span>=<span class="string">&quot;css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.main</span>\ elems &#123;</span></span><br><span class="line"><span class="language-css">      <span class="attribute">text-align</span>: <span class="comment">/*[[$&#123;align&#125;]]*/</span> left;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="碎片（组件）"><a href="#碎片（组件）" class="headerlink" title="碎片（组件）"></a>碎片（组件）</h2><p>日常开发中呢我们经常将有些可以复用的部分抽离出来</p>
+<p>新建一个<code>component.html</code>,一个文件里面可以写多个碎片，使用<code>th:fragment</code>来定义</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">footer</span> <span class="attr">th:fragment</span>=<span class="string">&quot;com1&quot;</span>&gt;</span></span><br><span class="line">	this is com1</span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span> <span class="attr">id</span>=<span class="string">&quot;com2&quot;</span>&gt;</span></span><br><span class="line">	this is com2</span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用碎片主要有两种方式<code>replace</code>和<code>insert</code>,在<code>index.html</code>中编写</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--replace--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:replace</span>=<span class="string">&quot;~&#123;component::com1&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--insert--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:insert</span>=<span class="string">&quot;~&#123;component::com1&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这两种方式的区别就是，replace会将新标签完全替换原本的标签，也就是说原本写<code>th:replace</code>属性的标签就不会渲染出来，<code>insert</code>是往这个地方插入标签</p>
+<p>我们看下上面两种方式渲染出来的区别吧</p>
+<p><img src="https://img.lookroot.cn/blog/202101/24/135940-632521.png" alt="image-20210124135939265"></p>
+<h3 id="直接通过选择器使用"><a href="#直接通过选择器使用" class="headerlink" title="直接通过选择器使用"></a>直接通过选择器使用</h3><p>对于碎片，甚至可以不定义，我们再次添加一个 碎片</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">footer</span> <span class="attr">id</span>=<span class="string">&quot;com2&quot;</span>&gt;</span></span><br><span class="line">	this is com2</span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后使用它</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:insert</span>=<span class="string">&quot;~&#123;component::#com2&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="注释类型"><a href="#注释类型" class="headerlink" title="注释类型"></a>注释类型</h3><p>在碎片里面，我们是可以使用控制传递的数据的，比如上面的User对象，但是开发工具在<code>component.html</code>页面中可能不能识别到User对象，我们可以打一个注释</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--/*@thymesVar id=&quot;user&quot; type=&quot;cn.lookroot.loop.thymeleafdemo.vo.UserVO&quot;*/--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;user.getUsername()&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="组件传递参数"><a href="#组件传递参数" class="headerlink" title="组件传递参数"></a>组件传递参数</h3><p>组件也是可以传递数据的</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:fragment</span>=<span class="string">&quot;com3(message)&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;message&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用的时候</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:insert</span>=<span class="string">&quot;~&#123;component::com3(&#x27;传递数据&#x27;)&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="局部替换组件"><a href="#局部替换组件" class="headerlink" title="局部替换组件"></a>局部替换组件</h3><p>我们使用一个组件的时候，想要局部替换掉这个组件里面的部分内容该怎么做呢？通过传递参数的方式传递一个组件过来，并把这个组件替换原本的一部分</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:fragment</span>=<span class="string">&quot;com4(message)&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">p</span> <span class="attr">th:replace</span>=<span class="string">&quot;$&#123;message&#125;&quot;</span>&gt;</span>原本的message<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用的时候</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:insert</span>=<span class="string">&quot;~&#123;component::com4(~&#123;::#message&#125;)&#125;&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;message&quot;</span>&gt;</span>替换的message<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="基本对象"><a href="#基本对象" class="headerlink" title="基本对象"></a>基本对象</h2><h3 id="ctx：上下文对象"><a href="#ctx：上下文对象" class="headerlink" title="#ctx：上下文对象"></a><strong>#ctx</strong>：上下文对象</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">$&#123;#ctx.request&#125;</span><br><span class="line">$&#123;#ctx.response&#125;</span><br><span class="line">$&#123;#ctx.session&#125;</span><br><span class="line">$&#123;#ctx.servletContext&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="请求-会话属性"><a href="#请求-会话属性" class="headerlink" title="请求/会话属性"></a>请求/会话属性</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">$&#123;session.xxx&#125;                 </span><br><span class="line">$&#123;application.xxx&#125;          </span><br><span class="line">$&#123;#request.getAttribute(&#x27;xxx&#x27;)&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h3><p>在thymeleaf里面是可以直接使用一些Java的函数的，并且你可以通过传递参数的方式把一些自己写的方法传递给页面，在里面调用也是可以的</p>
+<p>一些可以直接的使用函数</p>
+<ul>
+<li>#dates</li>
+<li>#calendars</li>
+<li>#strings</li>
+<li>#numbers</li>
+<li>#objects</li>
+<li>#bools</li>
+<li>#arrays</li>
+<li>#lists</li>
+<li>#sets</li>
+<li>#maps</li>
+<li>#aggregates</li>
+</ul>
+<p>以日期格式化来举例</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--日期格式化--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;#dates.format(user.createTime,&#x27;yyyy-MM-dd HH:mm&#x27;)&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2022/12/25/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
