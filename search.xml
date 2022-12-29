@@ -1,855 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2022/12/25/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Thymeleaf</title>
-    <url>/2022/12/26/Thymeleaf/</url>
-    <content><![CDATA[<h3 id="为什么是Thymeleaf"><a href="#为什么是Thymeleaf" class="headerlink" title="为什么是Thymeleaf"></a>为什么是Thymeleaf</h3><p>目前Java比较流行的模板引擎有Thymeleaf和Freemarker，Thymeleaf的话更适合当前的人员分工问题，回忆一下以前的Jsp页面，必须要动态渲染才能看到真实的效果，写页面的和写后端的分工不太明确</p>
-<p>Thymeleaf是动静分离的，页面中的动态标签是需要传递有数据的时候才会渲染，不然就是原本默认的静态的样子</p>
-<p>举一个例子<code>th:text=&quot;$&#123;title&#125;&quot;</code>是一个动态标签，当传递了title这个数据，页面就会渲染这个标签，如果没有传递这个参数，就会显示原本的网页结构<code>&lt;title&gt;默认的标题&lt;/title&gt;</code>,所以开发静态页面的时候的是前端工程师完全可以独立进行的</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;ch&quot;</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">title</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;title&#125;&quot;</span>&gt;</span>默认的标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>thymeleaf的语法和vue是有点类似的，很容易上手，下面就跟着我快速入门吧！</p>
-<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>直接创建一个springboot的模板项目就行了</p>
-<p><img src="https://img.lookroot.cn/blog/202101/23/141357-772186.png" alt="image-20210123141356383"></p>
-<p>需要引入的依赖文件</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="开启自动编译"><a href="#开启自动编译" class="headerlink" title="开启自动编译"></a>开启自动编译</h3><p>首先开发模式禁用页面缓存<code>application.yml</code></p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8001</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">thymeleaf:</span></span><br><span class="line">    <span class="attr">cache:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-<p>然后修改一下运行配置</p>
-<p><img src="https://img.lookroot.cn/blog/202101/20/003357-326412.png" alt="image-20210120003356158"></p>
-<p><img src="https://img.lookroot.cn/blog/202101/20/003419-309294.png" alt="image-20210120003419153"></p>
-<p>此时我们修改了页面文件后，直接刷新就能看到效果了</p>
-<h3 id="创建IDEA的模板"><a href="#创建IDEA的模板" class="headerlink" title="创建IDEA的模板"></a>创建IDEA的模板</h3><p>我们可以给IDEA创建一个页面模板，这样每次创建页面文件就带上基本的结构了</p>
-<p><img src="https://img.lookroot.cn/blog/202101/20/003911-716212.png" alt="image-20210120003910383"></p>
-<p>模板内容</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;ch&quot;</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这样我们在文件夹鼠标右键就多了一个选择</p>
-<p><img src="https://img.lookroot.cn/blog/202101/20/004016-830999.png" alt="image-20210120004015485"></p>
-<h2 id="Thymeleaf常用语法"><a href="#Thymeleaf常用语法" class="headerlink" title="Thymeleaf常用语法"></a>Thymeleaf常用语法</h2><h3 id="语法标记"><a href="#语法标记" class="headerlink" title="语法标记"></a>语法标记</h3><p><img src="https://img.lookroot.cn/blog/202101/24/000024-245091.png" alt="image-20210124000024217"></p>
-<h3 id="th-text，th-content"><a href="#th-text，th-content" class="headerlink" title="th:text，th:content"></a>th:text，th:content</h3><p><code>th:text</code>可以动态替换标签原本的内容</p>
-<p>在<code>templates</code>创建页面<code>index.html</code>,<code>$&#123;&#125;</code>里面可以写</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;ch&quot;</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;title&#125;&quot;</span>&gt;</span>默认的标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>写一个测试控制器<code>IndexController</code></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">IndexController</span> &#123;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;/index&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">index</span><span class="params">(Model model)</span> &#123;</span><br><span class="line">        model.addAttribute(<span class="string">&quot;title&quot;</span>, <span class="string">&quot;传递的标题&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;index&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此时如果我们直接打开<code>index.html</code>这个文件而不是通过SpringBoot的控制器去打开它</p>
-<p>看下源代码，可以发现动态标签是没有渲染出来的，这就是动静分离</p>
-<p><img src="https://img.lookroot.cn/blog/202101/23/175938-325132.png" alt="image-20210123175937168"></p>
-<p>然后我们通过控制器打开<code>http://localhost:8001/index</code>,看看源码</p>
-<p><img src="https://img.lookroot.cn/blog/202101/23/180038-251130.png" alt="image-20210123180037868"></p>
-<p>同理我们使用<code>th:content</code>标签来渲染页面描述和页面关键字，这是在昨天的实战里面讲到过的</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;title&#125;&quot;</span>&gt;</span>默认的标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;description&quot;</span> <span class="attr">th:content</span>=<span class="string">&quot;$&#123;description&#125;&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;keywords&quot;</span> <span class="attr">th:content</span>=<span class="string">&quot;$&#123;keywords&#125;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/index&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">index</span><span class="params">(Model model)</span> &#123;</span><br><span class="line">    model.addAttribute(<span class="string">&quot;title&quot;</span>, <span class="string">&quot;传递的标题&quot;</span>);</span><br><span class="line">    model.addAttribute(<span class="string">&quot;description&quot;</span>, <span class="string">&quot;传递的描述&quot;</span>);</span><br><span class="line">    model.addAttribute(<span class="string">&quot;keywords&quot;</span>, <span class="string">&quot;传递的关键字&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;index&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>假如我们的 th:text 标签里面需要拼接字符串<code>$&#123;title&#125;</code>可以使用<code>||</code>来包裹</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">title</span> <span class="attr">th:text</span>=<span class="string">&quot;|lookroot-$&#123;title&#125;|&quot;</span>&gt;</span>默认的标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="支持渲染的属性"><a href="#支持渲染的属性" class="headerlink" title="支持渲染的属性"></a>支持渲染的属性</h3><p>这类属性很多，每个属性都针对特定的HTML5属性：</p>
-<table>
-<thead>
-<tr>
-<th><code>th:abbr</code></th>
-<th><code>th:accept</code></th>
-<th><code>th:accept-charset</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>th:accesskey</code></td>
-<td><code>th:action</code></td>
-<td><code>th:align</code></td>
-</tr>
-<tr>
-<td><code>th:alt</code></td>
-<td><code>th:archive</code></td>
-<td><code>th:audio</code></td>
-</tr>
-<tr>
-<td><code>th:autocomplete</code></td>
-<td><code>th:axis</code></td>
-<td><code>th:background</code></td>
-</tr>
-<tr>
-<td><code>th:bgcolor</code></td>
-<td><code>th:border</code></td>
-<td><code>th:cellpadding</code></td>
-</tr>
-<tr>
-<td><code>th:cellspacing</code></td>
-<td><code>th:challenge</code></td>
-<td><code>th:charset</code></td>
-</tr>
-<tr>
-<td><code>th:cite</code></td>
-<td><code>th:class</code></td>
-<td><code>th:classid</code></td>
-</tr>
-<tr>
-<td><code>th:codebase</code></td>
-<td><code>th:codetype</code></td>
-<td><code>th:cols</code></td>
-</tr>
-<tr>
-<td><code>th:colspan</code></td>
-<td><code>th:compact</code></td>
-<td><code>th:content</code></td>
-</tr>
-<tr>
-<td><code>th:contenteditable</code></td>
-<td><code>th:contextmenu</code></td>
-<td><code>th:data</code></td>
-</tr>
-<tr>
-<td><code>th:datetime</code></td>
-<td><code>th:dir</code></td>
-<td><code>th:draggable</code></td>
-</tr>
-<tr>
-<td><code>th:dropzone</code></td>
-<td><code>th:enctype</code></td>
-<td><code>th:for</code></td>
-</tr>
-<tr>
-<td><code>th:form</code></td>
-<td><code>th:formaction</code></td>
-<td><code>th:formenctype</code></td>
-</tr>
-<tr>
-<td><code>th:formmethod</code></td>
-<td><code>th:formtarget</code></td>
-<td><code>th:fragment</code></td>
-</tr>
-<tr>
-<td><code>th:frame</code></td>
-<td><code>th:frameborder</code></td>
-<td><code>th:headers</code></td>
-</tr>
-<tr>
-<td><code>th:height</code></td>
-<td><code>th:high</code></td>
-<td><code>th:href</code></td>
-</tr>
-<tr>
-<td><code>th:hreflang</code></td>
-<td><code>th:hspace</code></td>
-<td><code>th:http-equiv</code></td>
-</tr>
-<tr>
-<td><code>th:icon</code></td>
-<td><code>th:id</code></td>
-<td><code>th:inline</code></td>
-</tr>
-<tr>
-<td><code>th:keytype</code></td>
-<td><code>th:kind</code></td>
-<td><code>th:label</code></td>
-</tr>
-<tr>
-<td><code>th:lang</code></td>
-<td><code>th:list</code></td>
-<td><code>th:longdesc</code></td>
-</tr>
-<tr>
-<td><code>th:low</code></td>
-<td><code>th:manifest</code></td>
-<td><code>th:marginheight</code></td>
-</tr>
-<tr>
-<td><code>th:marginwidth</code></td>
-<td><code>th:max</code></td>
-<td><code>th:maxlength</code></td>
-</tr>
-<tr>
-<td><code>th:media</code></td>
-<td><code>th:method</code></td>
-<td><code>th:min</code></td>
-</tr>
-<tr>
-<td><code>th:name</code></td>
-<td><code>th:onabort</code></td>
-<td><code>th:onafterprint</code></td>
-</tr>
-<tr>
-<td><code>th:onbeforeprint</code></td>
-<td><code>th:onbeforeunload</code></td>
-<td><code>th:onblur</code></td>
-</tr>
-<tr>
-<td><code>th:oncanplay</code></td>
-<td><code>th:oncanplaythrough</code></td>
-<td><code>th:onchange</code></td>
-</tr>
-<tr>
-<td><code>th:onclick</code></td>
-<td><code>th:oncontextmenu</code></td>
-<td><code>th:ondblclick</code></td>
-</tr>
-<tr>
-<td><code>th:ondrag</code></td>
-<td><code>th:ondragend</code></td>
-<td><code>th:ondragenter</code></td>
-</tr>
-<tr>
-<td><code>th:ondragleave</code></td>
-<td><code>th:ondragover</code></td>
-<td><code>th:ondragstart</code></td>
-</tr>
-<tr>
-<td><code>th:ondrop</code></td>
-<td><code>th:ondurationchange</code></td>
-<td><code>th:onemptied</code></td>
-</tr>
-<tr>
-<td><code>th:onended</code></td>
-<td><code>th:onerror</code></td>
-<td><code>th:onfocus</code></td>
-</tr>
-<tr>
-<td><code>th:onformchange</code></td>
-<td><code>th:onforminput</code></td>
-<td><code>th:onhashchange</code></td>
-</tr>
-<tr>
-<td><code>th:oninput</code></td>
-<td><code>th:oninvalid</code></td>
-<td><code>th:onkeydown</code></td>
-</tr>
-<tr>
-<td><code>th:onkeypress</code></td>
-<td><code>th:onkeyup</code></td>
-<td><code>th:onload</code></td>
-</tr>
-<tr>
-<td><code>th:onloadeddata</code></td>
-<td><code>th:onloadedmetadata</code></td>
-<td><code>th:onloadstart</code></td>
-</tr>
-<tr>
-<td><code>th:onmessage</code></td>
-<td><code>th:onmousedown</code></td>
-<td><code>th:onmousemove</code></td>
-</tr>
-<tr>
-<td><code>th:onmouseout</code></td>
-<td><code>th:onmouseover</code></td>
-<td><code>th:onmouseup</code></td>
-</tr>
-<tr>
-<td><code>th:onmousewheel</code></td>
-<td><code>th:onoffline</code></td>
-<td><code>th:ononline</code></td>
-</tr>
-<tr>
-<td><code>th:onpause</code></td>
-<td><code>th:onplay</code></td>
-<td><code>th:onplaying</code></td>
-</tr>
-<tr>
-<td><code>th:onpopstate</code></td>
-<td><code>th:onprogress</code></td>
-<td><code>th:onratechange</code></td>
-</tr>
-<tr>
-<td><code>th:onreadystatechange</code></td>
-<td><code>th:onredo</code></td>
-<td><code>th:onreset</code></td>
-</tr>
-<tr>
-<td><code>th:onresize</code></td>
-<td><code>th:onscroll</code></td>
-<td><code>th:onseeked</code></td>
-</tr>
-<tr>
-<td><code>th:onseeking</code></td>
-<td><code>th:onselect</code></td>
-<td><code>th:onshow</code></td>
-</tr>
-<tr>
-<td><code>th:onstalled</code></td>
-<td><code>th:onstorage</code></td>
-<td><code>th:onsubmit</code></td>
-</tr>
-<tr>
-<td><code>th:onsuspend</code></td>
-<td><code>th:ontimeupdate</code></td>
-<td><code>th:onundo</code></td>
-</tr>
-<tr>
-<td><code>th:onunload</code></td>
-<td><code>th:onvolumechange</code></td>
-<td><code>th:onwaiting</code></td>
-</tr>
-<tr>
-<td><code>th:optimum</code></td>
-<td><code>th:pattern</code></td>
-<td><code>th:placeholder</code></td>
-</tr>
-<tr>
-<td><code>th:poster</code></td>
-<td><code>th:preload</code></td>
-<td><code>th:radiogroup</code></td>
-</tr>
-<tr>
-<td><code>th:rel</code></td>
-<td><code>th:rev</code></td>
-<td><code>th:rows</code></td>
-</tr>
-<tr>
-<td><code>th:rowspan</code></td>
-<td><code>th:rules</code></td>
-<td><code>th:sandbox</code></td>
-</tr>
-<tr>
-<td><code>th:scheme</code></td>
-<td><code>th:scope</code></td>
-<td><code>th:scrolling</code></td>
-</tr>
-<tr>
-<td><code>th:size</code></td>
-<td><code>th:sizes</code></td>
-<td><code>th:span</code></td>
-</tr>
-<tr>
-<td><code>th:spellcheck</code></td>
-<td><code>th:src</code></td>
-<td><code>th:srclang</code></td>
-</tr>
-<tr>
-<td><code>th:standby</code></td>
-<td><code>th:start</code></td>
-<td><code>th:step</code></td>
-</tr>
-<tr>
-<td><code>th:style</code></td>
-<td><code>th:summary</code></td>
-<td><code>th:tabindex</code></td>
-</tr>
-<tr>
-<td><code>th:target</code></td>
-<td><code>th:title</code></td>
-<td><code>th:type</code></td>
-</tr>
-<tr>
-<td><code>th:usemap</code></td>
-<td><code>th:value</code></td>
-<td><code>th:valuetype</code></td>
-</tr>
-<tr>
-<td><code>th:vspace</code></td>
-<td><code>th:width</code></td>
-<td><code>th:wrap</code></td>
-</tr>
-<tr>
-<td><code>th:xmlbase</code></td>
-<td><code>th:xmllang</code></td>
-<td><code>th:xmlspace</code></td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th><code>th:async</code></th>
-<th><code>th:autofocus</code></th>
-<th><code>th:autoplay</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>th:checked</code></td>
-<td><code>th:controls</code></td>
-<td><code>th:declare</code></td>
-</tr>
-<tr>
-<td><code>th:default</code></td>
-<td><code>th:defer</code></td>
-<td><code>th:disabled</code></td>
-</tr>
-<tr>
-<td><code>th:formnovalidate</code></td>
-<td><code>th:hidden</code></td>
-<td><code>th:ismap</code></td>
-</tr>
-<tr>
-<td><code>th:loop</code></td>
-<td><code>th:multiple</code></td>
-<td><code>th:novalidate</code></td>
-</tr>
-<tr>
-<td><code>th:nowrap</code></td>
-<td><code>th:open</code></td>
-<td><code>th:pubdate</code></td>
-</tr>
-<tr>
-<td><code>th:readonly</code></td>
-<td><code>th:required</code></td>
-<td><code>th:reversed</code></td>
-</tr>
-<tr>
-<td><code>th:scoped</code></td>
-<td><code>th:seamless</code></td>
-<td><code>th:selected</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="渲染对象"><a href="#渲染对象" class="headerlink" title="渲染对象"></a>渲染对象</h3><p>创建一个基本对象<code>UserVO</code></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserVO</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="keyword">private</span> Integer sex;</span><br><span class="line">    <span class="keyword">private</span> Boolean isVip;</span><br><span class="line">    <span class="keyword">private</span> Date createTime;</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; tags;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>新建一个方法<code>basic</code>，将user对象传输到页面中</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/basicTrain&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">basic</span><span class="params">(Model model)</span> &#123;</span><br><span class="line">    <span class="type">UserVO</span> <span class="variable">userVO</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserVO</span>();</span><br><span class="line">    userVO.setAge(<span class="number">21</span>);</span><br><span class="line">    userVO.setSex(<span class="number">1</span>);</span><br><span class="line">    userVO.setCreateTime(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">    userVO.setTags(Arrays.asList(<span class="string">&quot;Java&quot;</span>, <span class="string">&quot;PHP&quot;</span>, <span class="string">&quot;Node&quot;</span>));</span><br><span class="line">    userVO.setUsername(<span class="string">&quot;lookroot&quot;</span>);</span><br><span class="line">    model.addAttribute(<span class="string">&quot;user&quot;</span>, userVO);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;basic&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>新建<code>basic.html</code>，此时如果我们想渲染User这个对象的信息我们可以这样</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">	&lt;h2 th:text=<span class="string">&quot;$&#123;user.getUsername()&#125;&quot;</span>&gt;&lt;/h2&gt;</span><br><span class="line">	&lt;p th:text=<span class="string">&quot;$&#123;user.getAge()&#125;&quot;</span>&gt;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<p>也可以将User定义为临时变量，接着使用<code>*&#123;xxx&#125;</code>就能取到值了</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;div th:object=<span class="string">&quot;$&#123;user&#125;&quot;</span>&gt;</span><br><span class="line">	&lt;h2 th:text=<span class="string">&quot;*&#123;username&#125;&quot;</span>&gt;&lt;/h2&gt;</span><br><span class="line">	&lt;p th:text=<span class="string">&quot;*&#123;age&#125;&quot;</span>&gt;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<p>还可以不使用get的方式，直接使用属性名</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;user.username&#125;&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="th-if"><a href="#th-if" class="headerlink" title="th:if"></a>th:if</h3><p><code>th:if</code>通过布尔值决定这个元素是否渲染</p>
-<p>比如：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">th:if</span>=<span class="string">&quot;$&#123;user.isVip&#125;&quot;</span>&gt;</span>会员<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="th-each"><a href="#th-each" class="headerlink" title="th:each"></a>th:each</h3><p><code>th:each</code>可以迭代循环出数据，前面我们User对象里面的tags是一个数组，我们来渲染一下</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">li</span> <span class="attr">th:each</span>=<span class="string">&quot;tag:$&#123;user.getTags()&#125;&quot;</span> </span></span><br><span class="line"><span class="tag">       <span class="attr">th:text</span>=<span class="string">&quot;$&#123;tag&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>状态变量在<code>th:each</code>属性中定义，并且包含以下数据：</p>
-<ul>
-<li>当前的<em>迭代索引</em>，从0开始。这是<code>index</code>属性。</li>
-<li>从1开始的当前<em>迭代索引</em>。这是<code>count</code>属性。</li>
-<li>迭代变量中元素的总数。这是<code>size</code>财产。</li>
-<li>每次迭代的<em>iter变量</em>。这是<code>current</code>财产。</li>
-<li>当前迭代是偶数还是奇数。这些是<code>even/odd</code>布尔属性。</li>
-<li>当前迭代是否是第一个。这是<code>first</code>布尔属性。</li>
-<li>当前迭代是否为最后一次。这是<code>last</code>布尔属性。</li>
-</ul>
-<h3 id="th-switch"><a href="#th-switch" class="headerlink" title="th:switch"></a>th:switch</h3><p><code>th:switch</code>选择语句</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:switch</span>=<span class="string">&quot;$&#123;user.getSex()&#125;&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">th:case</span>=<span class="string">&quot;&#x27;1&#x27;&quot;</span>&gt;</span>男<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">th:case</span>=<span class="string">&quot;&#x27;2&#x27;&quot;</span>&gt;</span>女<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">th:case</span>=<span class="string">&quot;*&quot;</span>&gt;</span>默认<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="url"><a href="#url" class="headerlink" title="url"></a>url</h3><p>如果在springboot中需要引入static目录下的静态资源可以使用<code>@&#123;xxx&#125;</code>的方式</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">th:href</span>=<span class="string">&quot;@&#123;/app.css&#125;&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="JavaScript动态渲染"><a href="#JavaScript动态渲染" class="headerlink" title="JavaScript动态渲染"></a>JavaScript动态渲染</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">th:inline</span>=<span class="string">&quot;javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> user = <span class="comment">/*[[$&#123;user&#125;]]*/</span> &#123;&#125;;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(user);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>同理css也是可以的</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">th:inline</span>=<span class="string">&quot;css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.main</span>\ elems &#123;</span></span><br><span class="line"><span class="language-css">      <span class="attribute">text-align</span>: <span class="comment">/*[[$&#123;align&#125;]]*/</span> left;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="碎片（组件）"><a href="#碎片（组件）" class="headerlink" title="碎片（组件）"></a>碎片（组件）</h2><p>日常开发中呢我们经常将有些可以复用的部分抽离出来</p>
-<p>新建一个<code>component.html</code>,一个文件里面可以写多个碎片，使用<code>th:fragment</code>来定义</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">footer</span> <span class="attr">th:fragment</span>=<span class="string">&quot;com1&quot;</span>&gt;</span></span><br><span class="line">	this is com1</span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span> <span class="attr">id</span>=<span class="string">&quot;com2&quot;</span>&gt;</span></span><br><span class="line">	this is com2</span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>使用碎片主要有两种方式<code>replace</code>和<code>insert</code>,在<code>index.html</code>中编写</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--replace--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:replace</span>=<span class="string">&quot;~&#123;component::com1&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--insert--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:insert</span>=<span class="string">&quot;~&#123;component::com1&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这两种方式的区别就是，replace会将新标签完全替换原本的标签，也就是说原本写<code>th:replace</code>属性的标签就不会渲染出来，<code>insert</code>是往这个地方插入标签</p>
-<p>我们看下上面两种方式渲染出来的区别吧</p>
-<p><img src="https://img.lookroot.cn/blog/202101/24/135940-632521.png" alt="image-20210124135939265"></p>
-<h3 id="直接通过选择器使用"><a href="#直接通过选择器使用" class="headerlink" title="直接通过选择器使用"></a>直接通过选择器使用</h3><p>对于碎片，甚至可以不定义，我们再次添加一个 碎片</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">footer</span> <span class="attr">id</span>=<span class="string">&quot;com2&quot;</span>&gt;</span></span><br><span class="line">	this is com2</span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>然后使用它</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:insert</span>=<span class="string">&quot;~&#123;component::#com2&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="注释类型"><a href="#注释类型" class="headerlink" title="注释类型"></a>注释类型</h3><p>在碎片里面，我们是可以使用控制传递的数据的，比如上面的User对象，但是开发工具在<code>component.html</code>页面中可能不能识别到User对象，我们可以打一个注释</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--/*@thymesVar id=&quot;user&quot; type=&quot;cn.lookroot.loop.thymeleafdemo.vo.UserVO&quot;*/--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;user.getUsername()&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="组件传递参数"><a href="#组件传递参数" class="headerlink" title="组件传递参数"></a>组件传递参数</h3><p>组件也是可以传递数据的</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:fragment</span>=<span class="string">&quot;com3(message)&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;message&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>使用的时候</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:insert</span>=<span class="string">&quot;~&#123;component::com3(&#x27;传递数据&#x27;)&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="局部替换组件"><a href="#局部替换组件" class="headerlink" title="局部替换组件"></a>局部替换组件</h3><p>我们使用一个组件的时候，想要局部替换掉这个组件里面的部分内容该怎么做呢？通过传递参数的方式传递一个组件过来，并把这个组件替换原本的一部分</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:fragment</span>=<span class="string">&quot;com4(message)&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">p</span> <span class="attr">th:replace</span>=<span class="string">&quot;$&#123;message&#125;&quot;</span>&gt;</span>原本的message<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>使用的时候</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:insert</span>=<span class="string">&quot;~&#123;component::com4(~&#123;::#message&#125;)&#125;&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;message&quot;</span>&gt;</span>替换的message<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="基本对象"><a href="#基本对象" class="headerlink" title="基本对象"></a>基本对象</h2><h3 id="ctx：上下文对象"><a href="#ctx：上下文对象" class="headerlink" title="#ctx：上下文对象"></a><strong>#ctx</strong>：上下文对象</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">$&#123;#ctx.request&#125;</span><br><span class="line">$&#123;#ctx.response&#125;</span><br><span class="line">$&#123;#ctx.session&#125;</span><br><span class="line">$&#123;#ctx.servletContext&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="请求-会话属性"><a href="#请求-会话属性" class="headerlink" title="请求/会话属性"></a>请求/会话属性</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">$&#123;session.xxx&#125;                 </span><br><span class="line">$&#123;application.xxx&#125;          </span><br><span class="line">$&#123;#request.getAttribute(&#x27;xxx&#x27;)&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h3><p>在thymeleaf里面是可以直接使用一些Java的函数的，并且你可以通过传递参数的方式把一些自己写的方法传递给页面，在里面调用也是可以的</p>
-<p>一些可以直接的使用函数</p>
-<ul>
-<li>#dates</li>
-<li>#calendars</li>
-<li>#strings</li>
-<li>#numbers</li>
-<li>#objects</li>
-<li>#bools</li>
-<li>#arrays</li>
-<li>#lists</li>
-<li>#sets</li>
-<li>#maps</li>
-<li>#aggregates</li>
-</ul>
-<p>以日期格式化来举例</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--日期格式化--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;#dates.format(user.createTime,&#x27;yyyy-MM-dd HH:mm&#x27;)&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
-  </entry>
-  <entry>
-    <title>Object类、常用API</title>
-    <url>/2022/12/26/Object%E7%B1%BB%E3%80%81%E5%B8%B8%E7%94%A8API/</url>
-    <content><![CDATA[<h2 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h2><ul>
-<li>Object类</li>
-<li>Date类</li>
-<li>DateFormat类</li>
-<li>Calendar类</li>
-<li>System类</li>
-<li>StringBuilder类</li>
-<li>包装类</li>
-</ul>
-<h1 id="第一章-Object类"><a href="#第一章-Object类" class="headerlink" title="第一章 Object类"></a>第一章 Object类</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><p><code>java.lang.Object</code>类是Java语言中的根类，即所有类的父类。它中描述的所有方法子类都可以使用。在对象实例化的时候，最终找的父类就是Object。</p>
-<p>如果一个类没有特别指定父类，    那么默认则继承自Object类。例如：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyClass</span> <span class="comment">/*extends Object*/</span> &#123;</span><br><span class="line">  	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>根据JDK源代码及Object类的API文档，Object类当中包含的方法有11个。今天我们主要学习其中的2个：</p>
-<ul>
-<li><code>public String toString()</code>：返回该对象的字符串表示。</li>
-<li><code>public boolean equals(Object obj)</code>：指示其他某个对象是否与此对象“相等”。</li>
-</ul>
-<h2 id="1-2-toString方法"><a href="#1-2-toString方法" class="headerlink" title="1.2 toString方法"></a>1.2 toString方法</h2><h3 id="方法摘要"><a href="#方法摘要" class="headerlink" title="方法摘要"></a>方法摘要</h3><ul>
-<li><code>public String toString()</code>：返回该对象的字符串表示。</li>
-</ul>
-<p>toString方法返回该对象的字符串表示，其实该字符串内容就是对象的类型+@+内存地址值。</p>
-<p>由于toString方法返回的结果是内存地址，而在开发中，经常需要按照对象的属性得到相应的字符串表现形式，因此也需要重写它。</p>
-<h3 id="覆盖重写"><a href="#覆盖重写" class="headerlink" title="覆盖重写"></a>覆盖重写</h3><p>如果不希望使用toString方法的默认行为，则可以对它进行覆盖重写。例如自定义的Person类：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;  </span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Person&#123;&quot;</span> + <span class="string">&quot;name=&#x27;&quot;</span> + name + <span class="string">&#x27;\&#x27;&#x27;</span> + <span class="string">&quot;, age=&quot;</span> + age + <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 省略构造器与Getter Setter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在IntelliJ IDEA中，可以点击<code>Code</code>菜单中的<code>Generate...</code>，也可以使用快捷键<code>alt+insert</code>，点击<code>toString()</code>选项。选择需要包含的成员变量并确定。如下图所示：</p>
-<p><img src="/img/1.png" alt="toString方法的自动重写"></p>
-<blockquote>
-<p>小贴士： 在我们直接使用输出语句输出对象名的时候,其实通过该对象调用了其toString()方法。</p>
-</blockquote>
-<h2 id="1-3-equals方法"><a href="#1-3-equals方法" class="headerlink" title="1.3 equals方法"></a>1.3 equals方法</h2><h3 id="方法摘要-1"><a href="#方法摘要-1" class="headerlink" title="方法摘要"></a>方法摘要</h3><ul>
-<li><code>public boolean equals(Object obj)</code>：指示其他某个对象是否与此对象“相等”。</li>
-</ul>
-<p>调用成员方法equals并指定参数为另一个对象，则可以判断这两个对象是否是相同的。这里的“相同”有默认和自定义两种方式。</p>
-<h3 id="默认地址比较"><a href="#默认地址比较" class="headerlink" title="默认地址比较"></a>默认地址比较</h3><p>如果没有覆盖重写equals方法，那么Object类中默认进行<code>==</code>运算符的对象地址比较，只要不是同一个对象，结果必然为false。</p>
-<h3 id="对象内容比较"><a href="#对象内容比较" class="headerlink" title="对象内容比较"></a>对象内容比较</h3><p>如果希望进行对象的内容比较，即所有或指定的部分成员变量相同就判定两个对象相同，则可以覆盖重写equals方法。例如：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;	</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">	</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Object o)</span> &#123;</span><br><span class="line">        <span class="comment">// 如果对象地址一样，则认为相同</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span> == o)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// 如果参数为空，或者类型信息不一样，则认为不同</span></span><br><span class="line">        <span class="keyword">if</span> (o == <span class="literal">null</span> || getClass() != o.getClass())</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// 转换为当前类型</span></span><br><span class="line">        <span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> (Person) o;</span><br><span class="line">        <span class="comment">// 要求基本类型相等，并且将引用类型交给java.util.Objects类的equals静态方法取用结果</span></span><br><span class="line">        <span class="keyword">return</span> age == person.age &amp;&amp; Objects.equals(name, person.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这段代码充分考虑了对象为空、类型一致等问题，但方法内容并不唯一。大多数IDE都可以自动生成equals方法的代码内容。在IntelliJ IDEA中，可以使用<code>Code</code>菜单中的<code>Generate…</code>选项，也可以使用快捷键<code>alt+insert</code>，并选择<code>equals() and hashCode()</code>进行自动代码生成。如下图所示：</p>
-<p><img src="img\2.png" alt=""></p>
-<p><img src="img\3.png" alt=""></p>
-<p><img src="img\4.png" alt=""></p>
-<blockquote>
-<p>tips：Object类当中的hashCode等其他方法，今后学习。</p>
-</blockquote>
-<h2 id="1-4-Objects类"><a href="#1-4-Objects类" class="headerlink" title="1.4 Objects类"></a>1.4 Objects类</h2><p>在刚才IDEA自动重写equals代码中，使用到了<code>java.util.Objects</code>类，那么这个类是什么呢？</p>
-<p>在<strong>JDK7</strong>添加了一个Objects工具类，它提供了一些方法来操作对象，它由一些静态的实用方法组成，这些方法是null-save（空指针安全的）或null-tolerant（容忍空指针的），用于计算对象的hashcode、返回对象的字符串表示形式、比较两个对象。</p>
-<p>在比较两个对象的时候，Object的equals方法容易抛出空指针异常，而Objects类中的equals方法就优化了这个问题。方法如下：</p>
-<ul>
-<li><code>public static boolean equals(Object a, Object b)</code>:判断两个对象是否相等。</li>
-</ul>
-<p>我们可以查看一下源码，学习一下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Object a, Object b)</span> &#123;  </span><br><span class="line">    <span class="keyword">return</span> (a == b) || (a != <span class="literal">null</span> &amp;&amp; a.equals(b));  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="第二章-日期时间类"><a href="#第二章-日期时间类" class="headerlink" title="第二章 日期时间类"></a>第二章 日期时间类</h1><h2 id="2-1-Date类"><a href="#2-1-Date类" class="headerlink" title="2.1 Date类"></a>2.1 Date类</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><code>java.util.Date</code>类 表示特定的瞬间，精确到毫秒。</p>
-<p>继续查阅Date类的描述，发现Date拥有多个构造函数，只是部分已经过时，但是其中有未过时的构造函数可以把毫秒值转成日期对象。</p>
-<ul>
-<li><code>public Date()</code>：分配Date对象并初始化此对象，以表示分配它的时间（精确到毫秒）。</li>
-<li><code>public Date(long date)</code>：分配Date对象并初始化此对象，以表示自从标准基准时间（称为“历元（epoch）”，即1970年1月1日00:00:00 GMT）以来的指定毫秒数。</li>
-</ul>
-<blockquote>
-<p>tips: 由于我们处于东八区，所以我们的基准时间为1970年1月1日8时0分0秒。</p>
-</blockquote>
-<p>简单来说：使用无参构造，可以自动设置当前系统时间的毫秒时刻；指定long类型的构造参数，可以自定义毫秒时刻。例如：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo01Date</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 创建日期对象，把当前的时间</span></span><br><span class="line">        System.out.println(<span class="keyword">new</span> <span class="title class_">Date</span>()); <span class="comment">// Tue Jan 16 14:37:35 CST 2018</span></span><br><span class="line">        <span class="comment">// 创建日期对象，把当前的毫秒值转成日期对象</span></span><br><span class="line">        System.out.println(<span class="keyword">new</span> <span class="title class_">Date</span>(<span class="number">0L</span>)); <span class="comment">// Thu Jan 01 08:00:00 CST 1970</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>tips:在使用println方法时，会自动调用Date类中的toString方法。Date类对Object类中的toString方法进行了覆盖重写，所以结果为指定格式的字符串。</p>
-</blockquote>
-<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><p>Date类中的多数方法已经过时，常用的方法有：</p>
-<ul>
-<li><code>public long getTime()</code> 把日期对象转换成对应的时间毫秒值。</li>
-</ul>
-<h2 id="2-2-DateFormat类"><a href="#2-2-DateFormat类" class="headerlink" title="2.2 DateFormat类"></a>2.2 DateFormat类</h2><p><code>java.text.DateFormat</code> 是日期/时间格式化子类的抽象类，我们通过这个类可以帮我们完成日期和文本之间的转换,也就是可以在Date对象与String对象之间进行来回转换。</p>
-<ul>
-<li><strong>格式化</strong>：按照指定的格式，从Date对象转换为String对象。</li>
-<li><strong>解析</strong>：按照指定的格式，从String对象转换为Date对象。</li>
-</ul>
-<h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><p>由于DateFormat为抽象类，不能直接使用，所以需要常用的子类<code>java.text.SimpleDateFormat</code>。这个类需要一个模式（格式）来指定格式化或解析的标准。构造方法为：</p>
-<ul>
-<li><code>public SimpleDateFormat(String pattern)</code>：用给定的模式和默认语言环境的日期格式符号构造SimpleDateFormat。</li>
-</ul>
-<p>参数pattern是一个字符串，代表日期时间的自定义格式。</p>
-<h3 id="格式规则"><a href="#格式规则" class="headerlink" title="格式规则"></a>格式规则</h3><p>常用的格式规则为：</p>
-<table>
-<thead>
-<tr>
-<th>标识字母（区分大小写）</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>y</td>
-<td>年</td>
-</tr>
-<tr>
-<td>M</td>
-<td>月</td>
-</tr>
-<tr>
-<td>d</td>
-<td>日</td>
-</tr>
-<tr>
-<td>H</td>
-<td>时</td>
-</tr>
-<tr>
-<td>m</td>
-<td>分</td>
-</tr>
-<tr>
-<td>s</td>
-<td>秒</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>备注：更详细的格式规则，可以参考SimpleDateFormat类的API文档。</p>
-</blockquote>
-<p>创建SimpleDateFormat对象的代码如：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.text.DateFormat;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo02SimpleDateFormat</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 对应的日期格式如：2018-01-16 15:06:38</span></span><br><span class="line">        <span class="type">DateFormat</span> <span class="variable">format</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="常用方法-1"><a href="#常用方法-1" class="headerlink" title="常用方法"></a>常用方法</h3><p>DateFormat类的常用方法有：</p>
-<ul>
-<li><code>public String format(Date date)</code>：将Date对象格式化为字符串。</li>
-<li><code>public Date parse(String source)</code>：将字符串解析为Date对象。</li>
-</ul>
-<h4 id="format方法"><a href="#format方法" class="headerlink" title="format方法"></a>format方法</h4><p>使用format方法的代码为：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.text.DateFormat;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> 把Date对象转换成String</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo03DateFormatMethod</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">        <span class="comment">// 创建日期格式化对象,在获取格式化对象时可以指定风格</span></span><br><span class="line">        <span class="type">DateFormat</span> <span class="variable">df</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy年MM月dd日&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> df.format(date);</span><br><span class="line">        System.out.println(str); <span class="comment">// 2008年1月23日</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="parse方法"><a href="#parse方法" class="headerlink" title="parse方法"></a>parse方法</h4><p>使用parse方法的代码为：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.text.DateFormat;</span><br><span class="line"><span class="keyword">import</span> java.text.ParseException;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> 把String转换成Date对象</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo04DateFormatMethod</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ParseException &#123;</span><br><span class="line">        <span class="type">DateFormat</span> <span class="variable">df</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy年MM月dd日&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;2018年12月11日&quot;</span>;</span><br><span class="line">        <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> df.parse(str);</span><br><span class="line">        System.out.println(date); <span class="comment">// Tue Dec 11 00:00:00 CST 2018</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="2-3-练习"><a href="#2-3-练习" class="headerlink" title="2.3 练习"></a>2.3 练习</h2><p>请使用日期时间相关的API，计算出一个人已经出生了多少天。</p>
-<p><strong>思路：</strong></p>
-<p>1.获取当前时间对应的毫秒值</p>
-<p>2.获取自己出生日期对应的毫秒值</p>
-<p>3.两个时间相减（当前时间– 出生日期）</p>
-<p><strong>代码实现：</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">function</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">	System.out.println(<span class="string">&quot;请输入出生日期 格式 YYYY-MM-dd&quot;</span>);</span><br><span class="line">	<span class="comment">// 获取出生日期,键盘输入</span></span><br><span class="line">	<span class="type">String</span> <span class="variable">birthdayString</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in).next();</span><br><span class="line">	<span class="comment">// 将字符串日期,转成Date对象</span></span><br><span class="line">	<span class="comment">// 创建SimpleDateFormat对象,写日期模式</span></span><br><span class="line">	<span class="type">SimpleDateFormat</span> <span class="variable">sdf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd&quot;</span>);</span><br><span class="line">	<span class="comment">// 调用方法parse,字符串转成日期对象</span></span><br><span class="line">	<span class="type">Date</span> <span class="variable">birthdayDate</span> <span class="operator">=</span> sdf.parse(birthdayString);	</span><br><span class="line">	<span class="comment">// 获取今天的日期对象</span></span><br><span class="line">	<span class="type">Date</span> <span class="variable">todayDate</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>();	</span><br><span class="line">	<span class="comment">// 将两个日期转成毫秒值,Date类的方法getTime</span></span><br><span class="line">	<span class="type">long</span> <span class="variable">birthdaySecond</span> <span class="operator">=</span> birthdayDate.getTime();</span><br><span class="line">	<span class="type">long</span> <span class="variable">todaySecond</span> <span class="operator">=</span> todayDate.getTime();</span><br><span class="line">	<span class="type">long</span> <span class="variable">secone</span> <span class="operator">=</span> todaySecond-birthdaySecond;	</span><br><span class="line">	<span class="keyword">if</span> (secone &lt; <span class="number">0</span>)&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;还没出生呢&quot;</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		System.out.println(secone/<span class="number">1000</span>/<span class="number">60</span>/<span class="number">60</span>/<span class="number">24</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="2-4-Calendar类"><a href="#2-4-Calendar类" class="headerlink" title="2.4 Calendar类"></a>2.4 Calendar类</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>日历我们都见过</p>
-<p><img src="img\5.jpg" alt=""></p>
-<p><code>java.util.Calendar</code>是日历类，在Date后出现，替换掉了许多Date的方法。该类将所有可能用到的时间信息封装为静态成员变量，方便获取。日历类就是方便获取各个时间属性的。</p>
-<h3 id="获取方式"><a href="#获取方式" class="headerlink" title="获取方式"></a>获取方式</h3><p>Calendar为抽象类，由于语言敏感性，Calendar类在创建对象时并非直接创建，而是通过静态方法创建，返回子类对象，如下：</p>
-<p>Calendar静态方法</p>
-<ul>
-<li><code>public static Calendar getInstance()</code>：使用默认时区和语言环境获得一个日历</li>
-</ul>
-<p>例如：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Calendar;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo06CalendarInit</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Calendar</span> <span class="variable">cal</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="常用方法-2"><a href="#常用方法-2" class="headerlink" title="常用方法"></a>常用方法</h3><p>根据Calendar类的API文档，常用方法有：</p>
-<ul>
-<li><code>public int get(int field)</code>：返回给定日历字段的值。</li>
-<li><code>public void set(int field, int value)</code>：将给定的日历字段设置为给定值。</li>
-<li><code>public abstract void add(int field, int amount)</code>：根据日历的规则，为给定的日历字段添加或减去指定的时间量。</li>
-<li><code>public Date getTime()</code>：返回一个表示此Calendar时间值（从历元到现在的毫秒偏移量）的Date对象。</li>
-</ul>
-<p>Calendar类中提供很多成员常量，代表给定的日历字段：</p>
-<table>
-<thead>
-<tr>
-<th>字段值</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>YEAR</td>
-<td>年</td>
-</tr>
-<tr>
-<td>MONTH</td>
-<td>月（从0开始，可以+1使用）</td>
-</tr>
-<tr>
-<td>DAY_OF_MONTH</td>
-<td>月中的天（几号）</td>
-</tr>
-<tr>
-<td>HOUR</td>
-<td>时（12小时制）</td>
-</tr>
-<tr>
-<td>HOUR_OF_DAY</td>
-<td>时（24小时制）</td>
-</tr>
-<tr>
-<td>MINUTE</td>
-<td>分</td>
-</tr>
-<tr>
-<td>SECOND</td>
-<td>秒</td>
-</tr>
-<tr>
-<td>DAY_OF_WEEK</td>
-<td>周中的天（周几，周日为1，可以-1使用）</td>
-</tr>
-</tbody>
-</table>
-<h4 id="get-set方法"><a href="#get-set方法" class="headerlink" title="get/set方法"></a>get/set方法</h4><p>get方法用来获取指定字段的值，set方法用来设置指定字段的值，代码使用演示：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Calendar;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CalendarUtil</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 创建Calendar对象</span></span><br><span class="line">        <span class="type">Calendar</span> <span class="variable">cal</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">        <span class="comment">// 设置年 </span></span><br><span class="line">        <span class="type">int</span> <span class="variable">year</span> <span class="operator">=</span> cal.get(Calendar.YEAR);</span><br><span class="line">        <span class="comment">// 设置月</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">month</span> <span class="operator">=</span> cal.get(Calendar.MONTH) + <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 设置日</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">dayOfMonth</span> <span class="operator">=</span> cal.get(Calendar.DAY_OF_MONTH);</span><br><span class="line">        System.out.print(year + <span class="string">&quot;年&quot;</span> + month + <span class="string">&quot;月&quot;</span> + dayOfMonth + <span class="string">&quot;日&quot;</span>);</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Calendar;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo07CalendarMethod</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Calendar</span> <span class="variable">cal</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">        cal.set(Calendar.YEAR, <span class="number">2020</span>);</span><br><span class="line">        System.out.print(year + <span class="string">&quot;年&quot;</span> + month + <span class="string">&quot;月&quot;</span> + dayOfMonth + <span class="string">&quot;日&quot;</span>); <span class="comment">// 2020年1月17日</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="add方法"><a href="#add方法" class="headerlink" title="add方法"></a>add方法</h4><p>add方法可以对指定日历字段的值进行加减操作，如果第二个参数为正数则加上偏移量，如果为负数则减去偏移量。代码如：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Calendar;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo08CalendarMethod</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Calendar</span> <span class="variable">cal</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">        System.out.print(year + <span class="string">&quot;年&quot;</span> + month + <span class="string">&quot;月&quot;</span> + dayOfMonth + <span class="string">&quot;日&quot;</span>); <span class="comment">// 2018年1月17日</span></span><br><span class="line">        <span class="comment">// 使用add方法</span></span><br><span class="line">        cal.add(Calendar.DAY_OF_MONTH, <span class="number">2</span>); <span class="comment">// 加2天</span></span><br><span class="line">        cal.add(Calendar.YEAR, -<span class="number">3</span>); <span class="comment">// 减3年</span></span><br><span class="line">        System.out.print(year + <span class="string">&quot;年&quot;</span> + month + <span class="string">&quot;月&quot;</span> + dayOfMonth + <span class="string">&quot;日&quot;</span>); <span class="comment">// 2015年1月18日; </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="getTime方法"><a href="#getTime方法" class="headerlink" title="getTime方法"></a>getTime方法</h4><p>Calendar中的getTime方法并不是获取毫秒时刻，而是拿到对应的Date对象。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Calendar;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo09CalendarMethod</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Calendar</span> <span class="variable">cal</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">        <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> cal.getTime();</span><br><span class="line">        System.out.println(date); <span class="comment">// Tue Jan 16 16:03:09 CST 2018</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>小贴士：</p>
-<p>​     西方星期的开始为周日，中国为周一。</p>
-<p>​     在Calendar类中，月份的表示是以0-11代表1-12月。</p>
-<p>​     日期是有大小关系的，时间靠后，时间越大。</p>
-</blockquote>
-<h1 id="第三章-System类"><a href="#第三章-System类" class="headerlink" title="第三章 System类"></a>第三章 System类</h1><p><code>java.lang.System</code>类中提供了大量的静态方法，可以获取与系统相关的信息或系统级操作，在System类的API文档中，常用的方法有：</p>
-<ul>
-<li><code>public static long currentTimeMillis()</code>：返回以毫秒为单位的当前时间。</li>
-<li><code>public static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length)</code>：将数组中指定的数据拷贝到另一个数组中。</li>
-</ul>
-<h2 id="3-1-currentTimeMillis方法"><a href="#3-1-currentTimeMillis方法" class="headerlink" title="3.1 currentTimeMillis方法"></a>3.1 currentTimeMillis方法</h2><p>实际上，currentTimeMillis方法就是 获取当前系统时间与1970年01月01日00:00点之间的毫秒差值</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SystemDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">       	<span class="comment">//获取当前时间毫秒值</span></span><br><span class="line">        System.out.println(System.currentTimeMillis()); <span class="comment">// 1516090531144</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><p>验证for循环打印数字1-9999所需要使用的时间（毫秒）</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SystemTest1</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">start</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">            System.out.println(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">long</span> <span class="variable">end</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">&quot;共耗时毫秒：&quot;</span> + (end - start));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3-2-arraycopy方法"><a href="#3-2-arraycopy方法" class="headerlink" title="3.2 arraycopy方法"></a>3.2 arraycopy方法</h2><ul>
-<li><code>public static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length)</code>：将数组中指定的数据拷贝到另一个数组中。</li>
-</ul>
-<p>数组的拷贝动作是系统级的，性能很高。System.arraycopy方法具有5个参数，含义分别为：</p>
-<table>
-<thead>
-<tr>
-<th>参数序号</th>
-<th>参数名称</th>
-<th>参数类型</th>
-<th>参数含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>src</td>
-<td>Object</td>
-<td>源数组</td>
-</tr>
-<tr>
-<td>2</td>
-<td>srcPos</td>
-<td>int</td>
-<td>源数组索引起始位置</td>
-</tr>
-<tr>
-<td>3</td>
-<td>dest</td>
-<td>Object</td>
-<td>目标数组</td>
-</tr>
-<tr>
-<td>4</td>
-<td>destPos</td>
-<td>int</td>
-<td>目标数组索引起始位置</td>
-</tr>
-<tr>
-<td>5</td>
-<td>length</td>
-<td>int</td>
-<td>复制元素个数</td>
-</tr>
-</tbody>
-</table>
-<h3 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h3><p>将src数组中前3个元素，复制到dest数组的前3个位置上复制元素前：src数组元素[1,2,3,4,5]，dest数组元素[6,7,8,9,10]复制元素后：src数组元素[1,2,3,4,5]，dest数组元素[1,2,3,9,10]</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo11SystemArrayCopy</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] src = <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">        <span class="type">int</span>[] dest = <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>&#125;;</span><br><span class="line">        System.arraycopy( src, <span class="number">0</span>, dest, <span class="number">0</span>, <span class="number">3</span>);</span><br><span class="line">        <span class="comment">/*代码运行后：两个数组中的元素发生了变化</span></span><br><span class="line"><span class="comment">         src数组元素[1,2,3,4,5]</span></span><br><span class="line"><span class="comment">         dest数组元素[1,2,3,9,10]</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="第四章-StringBuilder类"><a href="#第四章-StringBuilder类" class="headerlink" title="第四章 StringBuilder类"></a>第四章 StringBuilder类</h1><h2 id="4-1-字符串拼接问题"><a href="#4-1-字符串拼接问题" class="headerlink" title="4.1 字符串拼接问题"></a>4.1 字符串拼接问题</h2><p>由于String类的对象内容不可改变，所以每当进行字符串拼接时，总是会在内存中创建一个新的对象。例如：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StringDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">        s += <span class="string">&quot;World&quot;</span>;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在API中对String类有这样的描述：字符串是常量，它们的值在创建后不能被更改。</p>
-<p>根据这句话分析我们的代码，其实总共产生了三个字符串，即<code>&quot;Hello&quot;</code>、<code>&quot;World&quot;</code>和<code>&quot;HelloWorld&quot;</code>。引用变量s首先指向<code>Hello</code>对象，最终指向拼接出来的新字符串对象，即<code>HelloWord</code> 。</p>
-<p><img src="img\6.png" alt=""></p>
-<p>由此可知，如果对字符串进行拼接操作，每次拼接，都会构建一个新的String对象，既耗时，又浪费空间。为了解决这一问题，可以使用<code>java.lang.StringBuilder</code>类。</p>
-<h2 id="4-2-StringBuilder概述"><a href="#4-2-StringBuilder概述" class="headerlink" title="4.2 StringBuilder概述"></a>4.2 StringBuilder概述</h2><p>查阅<code>java.lang.StringBuilder</code>的API，StringBuilder又称为可变字符序列，它是一个类似于 String 的字符串缓冲区，通过某些方法调用可以改变该序列的长度和内容。</p>
-<p>原来StringBuilder是个字符串的缓冲区，即它是一个容器，容器中可以装很多字符串。并且能够对其中的字符串进行各种操作。</p>
-<p>它的内部拥有一个数组用来存放字符串内容，进行字符串拼接时，直接在数组中加入新内容。StringBuilder会自动维护数组的扩容。原理如下图所示：(默认16字符空间，超过自动扩充)</p>
-<p><img src="img\7.png" alt="06-StringBuilder的原理"></p>
-<h2 id="4-3-构造方法"><a href="#4-3-构造方法" class="headerlink" title="4.3 构造方法"></a>4.3 构造方法</h2><p>根据StringBuilder的API文档，常用构造方法有2个：</p>
-<ul>
-<li><code>public StringBuilder()</code>：构造一个空的StringBuilder容器。</li>
-<li><code>public StringBuilder(String str)</code>：构造一个StringBuilder容器，并将字符串添加进去。</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StringBuilderDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sb1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        System.out.println(sb1); <span class="comment">// (空白)</span></span><br><span class="line">        <span class="comment">// 使用带参构造</span></span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sb2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;itcast&quot;</span>);</span><br><span class="line">        System.out.println(sb2); <span class="comment">// itcast</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="4-4-常用方法"><a href="#4-4-常用方法" class="headerlink" title="4.4 常用方法"></a>4.4 常用方法</h2><p>StringBuilder常用的方法有2个：</p>
-<ul>
-<li><code>public StringBuilder append(...)</code>：添加任意类型数据的字符串形式，并返回当前对象自身。</li>
-<li><code>public String toString()</code>：将当前StringBuilder对象转换为String对象。</li>
-</ul>
-<h3 id="append方法"><a href="#append方法" class="headerlink" title="append方法"></a>append方法</h3><p>append方法具有多种重载形式，可以接收任意类型的参数。任何数据作为参数都会将对应的字符串内容添加到StringBuilder中。例如：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo02StringBuilder</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">//创建对象</span></span><br><span class="line">		<span class="type">StringBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">		<span class="comment">//public StringBuilder append(任意类型)</span></span><br><span class="line">		<span class="type">StringBuilder</span> <span class="variable">builder2</span> <span class="operator">=</span> builder.append(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">		<span class="comment">//对比一下</span></span><br><span class="line">		System.out.println(<span class="string">&quot;builder:&quot;</span>+builder);</span><br><span class="line">		System.out.println(<span class="string">&quot;builder2:&quot;</span>+builder2);</span><br><span class="line">		System.out.println(builder == builder2); <span class="comment">//true</span></span><br><span class="line">	    <span class="comment">// 可以添加 任何类型</span></span><br><span class="line">		builder.append(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">		builder.append(<span class="string">&quot;world&quot;</span>);</span><br><span class="line">		builder.append(<span class="literal">true</span>);</span><br><span class="line">		builder.append(<span class="number">100</span>);</span><br><span class="line">		<span class="comment">// 在我们开发中，会遇到调用一个方法后，返回一个对象的情况。然后使用返回的对象继续调用方法。</span></span><br><span class="line">        <span class="comment">// 这种时候，我们就可以把代码现在一起，如append方法一样，代码如下</span></span><br><span class="line">		<span class="comment">//链式编程</span></span><br><span class="line">		builder.append(<span class="string">&quot;hello&quot;</span>).append(<span class="string">&quot;world&quot;</span>).append(<span class="literal">true</span>).append(<span class="number">100</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;builder:&quot;</span>+builder);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>备注：StringBuilder已经覆盖重写了Object当中的toString方法。</p>
-</blockquote>
-<h3 id="toString方法"><a href="#toString方法" class="headerlink" title="toString方法"></a>toString方法</h3><p>通过toString方法，StringBuilder对象将会转换为不可变的String对象。如：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo16StringBuilder</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 链式创建</span></span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> 				      <span class="title class_">StringBuilder</span>(<span class="string">&quot;Hello&quot;</span>).append(<span class="string">&quot;World&quot;</span>).append(<span class="string">&quot;Java&quot;</span>);</span><br><span class="line">        <span class="comment">// 调用方法</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> builder.toString();</span><br><span class="line">        System.out.println(str); <span class="comment">// HelloWorldJava</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="第五章-包装类"><a href="#第五章-包装类" class="headerlink" title="第五章 包装类"></a>第五章 包装类</h1><h2 id="5-1-概述"><a href="#5-1-概述" class="headerlink" title="5.1 概述"></a>5.1 概述</h2><p>Java提供了两个类型系统，基本类型与引用类型，使用基本类型在于效率，然而很多情况，会创建对象使用，因为对象可以做更多的功能，如果想要我们的基本类型像对象一样操作，就可以使用基本类型对应的包装类，如下：</p>
-<table>
-<thead>
-<tr>
-<th>基本类型</th>
-<th>对应的包装类（位于java.lang包中）</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>byte</td>
-<td>Byte</td>
-</tr>
-<tr>
-<td>short</td>
-<td>Short</td>
-</tr>
-<tr>
-<td>int</td>
-<td><strong>Integer</strong></td>
-</tr>
-<tr>
-<td>long</td>
-<td>Long</td>
-</tr>
-<tr>
-<td>float</td>
-<td>Float</td>
-</tr>
-<tr>
-<td>double</td>
-<td>Double</td>
-</tr>
-<tr>
-<td>char</td>
-<td><strong>Character</strong></td>
-</tr>
-<tr>
-<td>boolean</td>
-<td>Boolean</td>
-</tr>
-</tbody>
-</table>
-<h2 id="5-2-装箱与拆箱"><a href="#5-2-装箱与拆箱" class="headerlink" title="5.2 装箱与拆箱"></a>5.2 装箱与拆箱</h2><p>基本类型与对应的包装类对象之间，来回转换的过程称为”装箱“与”拆箱“：</p>
-<ul>
-<li><p><strong>装箱</strong>：从基本类型转换为对应的包装类对象。</p>
-</li>
-<li><p><strong>拆箱</strong>：从包装类对象转换为对应的基本类型。</p>
-</li>
-</ul>
-<p>用Integer与 int为例：（看懂代码即可）</p>
-<p>基本数值—-&gt;包装对象[<strong>装箱</strong>]</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">i</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Integer</span>(<span class="number">4</span>);<span class="comment">//使用构造函数函数</span></span><br><span class="line"><span class="type">Integer</span> <span class="variable">iii</span> <span class="operator">=</span> Integer.valueOf(<span class="number">4</span>);<span class="comment">//使用包装类中的valueOf方法</span></span><br></pre></td></tr></table></figure>
-<p>包装对象—-&gt;基本数值[<strong>拆箱</strong>]</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> i.intValue();</span><br></pre></td></tr></table></figure>
-<h2 id="5-3自动装箱与自动拆箱"><a href="#5-3自动装箱与自动拆箱" class="headerlink" title="5.3自动装箱与自动拆箱"></a>5.3自动装箱与自动拆箱</h2><p>由于我们经常要做基本类型与包装类之间的转换，从Java 5（JDK 1.5）开始，基本类型与包装类的装箱、拆箱动作可以自动完成。例如：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">4</span>;<span class="comment">//自动装箱。相当于Integer i = Integer.valueOf(4);</span></span><br><span class="line">i = i + <span class="number">5</span>;<span class="comment">//等号右边：将i对象转成基本数值(自动拆箱) i.intValue() + 5;</span></span><br><span class="line"><span class="comment">//加法运算完成后，再次装箱，把基本数值转成对象。</span></span><br></pre></td></tr></table></figure>
-<h2 id="5-3-基本类型与字符串之间的转换"><a href="#5-3-基本类型与字符串之间的转换" class="headerlink" title="5.3 基本类型与字符串之间的转换"></a>5.3 基本类型与字符串之间的转换</h2><h3 id="基本类型转换为String"><a href="#基本类型转换为String" class="headerlink" title="基本类型转换为String"></a>基本类型转换为String</h3><p>   基本类型转换String总共有三种方式，查看课后资料可以得知，这里只讲最简单的一种方式： </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">基本类型直接与””相连接即可；如：34+&quot;&quot;</span><br></pre></td></tr></table></figure>
-<p>String转换成对应的基本类型 </p>
-<p>除了Character类之外，其他所有包装类都具有parseXxx静态方法可以将字符串参数转换为对应的基本类型：</p>
-<ul>
-<li><code>public static byte parseByte(String s)</code>：将字符串参数转换为对应的byte基本类型。</li>
-<li><code>public static short parseShort(String s)</code>：将字符串参数转换为对应的short基本类型。</li>
-<li><code>public static int parseInt(String s)</code>：将字符串参数转换为对应的int基本类型。</li>
-<li><code>public static long parseLong(String s)</code>：将字符串参数转换为对应的long基本类型。</li>
-<li><code>public static float parseFloat(String s)</code>：将字符串参数转换为对应的float基本类型。</li>
-<li><code>public static double parseDouble(String s)</code>：将字符串参数转换为对应的double基本类型。</li>
-<li><code>public static boolean parseBoolean(String s)</code>：将字符串参数转换为对应的boolean基本类型。</li>
-</ul>
-<p>代码使用（仅以Integer类的静态方法parseXxx为例）如：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo18WrapperParse</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> Integer.parseInt(<span class="string">&quot;100&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注意:如果字符串参数的内容无法正确转换为对应的基本类型，则会抛出<code>java.lang.NumberFormatException</code>异常。</p>
-</blockquote>
-]]></content>
-  </entry>
-  <entry>
     <title>JDBC核心技术</title>
     <url>/2022/12/26/JDBC/</url>
     <content><![CDATA[<hr>
@@ -1742,6 +893,855 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 自定义ResultSetHandler的实现类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testQueryInstance1</span><span class="params">()</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">	<span class="type">QueryRunner</span> <span class="variable">runner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">QueryRunner</span>();</span><br><span class="line"></span><br><span class="line">	<span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> JDBCUtils.getConnection3();</span><br><span class="line">		</span><br><span class="line">	<span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select id,name,email,birth from customers where id = ?&quot;</span>;</span><br><span class="line">		</span><br><span class="line">	ResultSetHandler&lt;Customer&gt; handler = <span class="keyword">new</span> <span class="title class_">ResultSetHandler</span>&lt;Customer&gt;() &#123;</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="keyword">public</span> Customer <span class="title function_">handle</span><span class="params">(ResultSet rs)</span> <span class="keyword">throws</span> SQLException &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;handle&quot;</span>);</span><br><span class="line"><span class="comment">//			return new Customer(1,&quot;Tom&quot;,&quot;tom@126.com&quot;,new Date(123323432L));</span></span><br><span class="line">				</span><br><span class="line">			<span class="keyword">if</span>(rs.next())&#123;</span><br><span class="line">				<span class="type">int</span> <span class="variable">id</span> <span class="operator">=</span> rs.getInt(<span class="string">&quot;id&quot;</span>);</span><br><span class="line">				<span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> rs.getString(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">				<span class="type">String</span> <span class="variable">email</span> <span class="operator">=</span> rs.getString(<span class="string">&quot;email&quot;</span>);</span><br><span class="line">				<span class="type">Date</span> <span class="variable">birth</span> <span class="operator">=</span> rs.getDate(<span class="string">&quot;birth&quot;</span>);</span><br><span class="line">					</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Customer</span>(id, name, email, birth);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">				</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">		</span><br><span class="line">	<span class="type">Customer</span> <span class="variable">customer</span> <span class="operator">=</span> runner.query(conn, sql, handler, <span class="number">23</span>);</span><br><span class="line">		</span><br><span class="line">	System.out.println(customer);</span><br><span class="line">		</span><br><span class="line">	JDBCUtils.closeResource(conn, <span class="literal">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 如何查询类似于最大的，最小的，平均的，总和，个数相关的数据，</span></span><br><span class="line"><span class="comment"> * 使用ScalarHandler</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testQueryValue</span><span class="params">()</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">	<span class="type">QueryRunner</span> <span class="variable">runner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">QueryRunner</span>();</span><br><span class="line"></span><br><span class="line">	<span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> JDBCUtils.getConnection3();</span><br><span class="line">		</span><br><span class="line">	<span class="comment">//测试一：</span></span><br><span class="line"><span class="comment">//	String sql = &quot;select count(*) from customers where id &lt; ?&quot;;</span></span><br><span class="line"><span class="comment">//	ScalarHandler handler = new ScalarHandler();</span></span><br><span class="line"><span class="comment">//	long count = (long) runner.query(conn, sql, handler, 20);</span></span><br><span class="line"><span class="comment">//	System.out.println(count);</span></span><br><span class="line">		</span><br><span class="line">	<span class="comment">//测试二：</span></span><br><span class="line">	<span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select max(birth) from customers&quot;</span>;</span><br><span class="line">	<span class="type">ScalarHandler</span> <span class="variable">handler</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ScalarHandler</span>();</span><br><span class="line">	<span class="type">Date</span> <span class="variable">birth</span> <span class="operator">=</span> (Date) runner.query(conn, sql, handler);</span><br><span class="line">	System.out.println(birth);</span><br><span class="line">		</span><br><span class="line">	JDBCUtils.closeResource(conn, <span class="literal">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="JDBC总结"><a href="#JDBC总结" class="headerlink" title="JDBC总结"></a>JDBC总结</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">总结</span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testUpdateWithTx</span><span class="params">()</span> &#123;</span><br><span class="line">		</span><br><span class="line">	<span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="comment">//1.获取连接的操作（</span></span><br><span class="line">		<span class="comment">//① 手写的连接：JDBCUtils.getConnection();</span></span><br><span class="line">		<span class="comment">//② 使用数据库连接池：C3P0;DBCP;Druid</span></span><br><span class="line">		<span class="comment">//2.对数据表进行一系列CRUD操作</span></span><br><span class="line">		<span class="comment">//① 使用PreparedStatement实现通用的增删改、查询操作（version 1.0 \ version 2.0)</span></span><br><span class="line"><span class="comment">//version2.0的增删改public void update(Connection conn,String sql,Object ... args)&#123;&#125;</span></span><br><span class="line"><span class="comment">//version2.0的查询 public &lt;T&gt; T getInstance(Connection conn,Class&lt;T&gt; clazz,String sql,Object ... args)&#123;&#125;</span></span><br><span class="line">		<span class="comment">//② 使用dbutils提供的jar包中提供的QueryRunner类</span></span><br><span class="line">			</span><br><span class="line">		<span class="comment">//提交数据</span></span><br><span class="line">		conn.commit();</span><br><span class="line">			</span><br><span class="line">	</span><br><span class="line">	&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">			</span><br><span class="line">			</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="comment">//回滚数据</span></span><br><span class="line">			conn.rollback();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e1) &#123;</span><br><span class="line">			e1.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">			</span><br><span class="line">	&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">		<span class="comment">//3.关闭连接等操作</span></span><br><span class="line">		<span class="comment">//① JDBCUtils.closeResource();</span></span><br><span class="line">		<span class="comment">//② 使用dbutils提供的jar包中提供的DbUtils类提供了关闭的相关操作</span></span><br><span class="line">			</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+  </entry>
+  <entry>
+    <title>Object类、常用API</title>
+    <url>/2022/12/26/Object%E7%B1%BB%E3%80%81%E5%B8%B8%E7%94%A8API/</url>
+    <content><![CDATA[<h2 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h2><ul>
+<li>Object类</li>
+<li>Date类</li>
+<li>DateFormat类</li>
+<li>Calendar类</li>
+<li>System类</li>
+<li>StringBuilder类</li>
+<li>包装类</li>
+</ul>
+<h1 id="第一章-Object类"><a href="#第一章-Object类" class="headerlink" title="第一章 Object类"></a>第一章 Object类</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><p><code>java.lang.Object</code>类是Java语言中的根类，即所有类的父类。它中描述的所有方法子类都可以使用。在对象实例化的时候，最终找的父类就是Object。</p>
+<p>如果一个类没有特别指定父类，    那么默认则继承自Object类。例如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyClass</span> <span class="comment">/*extends Object*/</span> &#123;</span><br><span class="line">  	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>根据JDK源代码及Object类的API文档，Object类当中包含的方法有11个。今天我们主要学习其中的2个：</p>
+<ul>
+<li><code>public String toString()</code>：返回该对象的字符串表示。</li>
+<li><code>public boolean equals(Object obj)</code>：指示其他某个对象是否与此对象“相等”。</li>
+</ul>
+<h2 id="1-2-toString方法"><a href="#1-2-toString方法" class="headerlink" title="1.2 toString方法"></a>1.2 toString方法</h2><h3 id="方法摘要"><a href="#方法摘要" class="headerlink" title="方法摘要"></a>方法摘要</h3><ul>
+<li><code>public String toString()</code>：返回该对象的字符串表示。</li>
+</ul>
+<p>toString方法返回该对象的字符串表示，其实该字符串内容就是对象的类型+@+内存地址值。</p>
+<p>由于toString方法返回的结果是内存地址，而在开发中，经常需要按照对象的属性得到相应的字符串表现形式，因此也需要重写它。</p>
+<h3 id="覆盖重写"><a href="#覆盖重写" class="headerlink" title="覆盖重写"></a>覆盖重写</h3><p>如果不希望使用toString方法的默认行为，则可以对它进行覆盖重写。例如自定义的Person类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;  </span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Person&#123;&quot;</span> + <span class="string">&quot;name=&#x27;&quot;</span> + name + <span class="string">&#x27;\&#x27;&#x27;</span> + <span class="string">&quot;, age=&quot;</span> + age + <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 省略构造器与Getter Setter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在IntelliJ IDEA中，可以点击<code>Code</code>菜单中的<code>Generate...</code>，也可以使用快捷键<code>alt+insert</code>，点击<code>toString()</code>选项。选择需要包含的成员变量并确定。如下图所示：</p>
+<p><img src="/img/1.png" alt="toString方法的自动重写"></p>
+<blockquote>
+<p>小贴士： 在我们直接使用输出语句输出对象名的时候,其实通过该对象调用了其toString()方法。</p>
+</blockquote>
+<h2 id="1-3-equals方法"><a href="#1-3-equals方法" class="headerlink" title="1.3 equals方法"></a>1.3 equals方法</h2><h3 id="方法摘要-1"><a href="#方法摘要-1" class="headerlink" title="方法摘要"></a>方法摘要</h3><ul>
+<li><code>public boolean equals(Object obj)</code>：指示其他某个对象是否与此对象“相等”。</li>
+</ul>
+<p>调用成员方法equals并指定参数为另一个对象，则可以判断这两个对象是否是相同的。这里的“相同”有默认和自定义两种方式。</p>
+<h3 id="默认地址比较"><a href="#默认地址比较" class="headerlink" title="默认地址比较"></a>默认地址比较</h3><p>如果没有覆盖重写equals方法，那么Object类中默认进行<code>==</code>运算符的对象地址比较，只要不是同一个对象，结果必然为false。</p>
+<h3 id="对象内容比较"><a href="#对象内容比较" class="headerlink" title="对象内容比较"></a>对象内容比较</h3><p>如果希望进行对象的内容比较，即所有或指定的部分成员变量相同就判定两个对象相同，则可以覆盖重写equals方法。例如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;	</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">	</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Object o)</span> &#123;</span><br><span class="line">        <span class="comment">// 如果对象地址一样，则认为相同</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span> == o)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// 如果参数为空，或者类型信息不一样，则认为不同</span></span><br><span class="line">        <span class="keyword">if</span> (o == <span class="literal">null</span> || getClass() != o.getClass())</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// 转换为当前类型</span></span><br><span class="line">        <span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> (Person) o;</span><br><span class="line">        <span class="comment">// 要求基本类型相等，并且将引用类型交给java.util.Objects类的equals静态方法取用结果</span></span><br><span class="line">        <span class="keyword">return</span> age == person.age &amp;&amp; Objects.equals(name, person.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码充分考虑了对象为空、类型一致等问题，但方法内容并不唯一。大多数IDE都可以自动生成equals方法的代码内容。在IntelliJ IDEA中，可以使用<code>Code</code>菜单中的<code>Generate…</code>选项，也可以使用快捷键<code>alt+insert</code>，并选择<code>equals() and hashCode()</code>进行自动代码生成。如下图所示：</p>
+<p><img src="img\2.png" alt=""></p>
+<p><img src="img\3.png" alt=""></p>
+<p><img src="img\4.png" alt=""></p>
+<blockquote>
+<p>tips：Object类当中的hashCode等其他方法，今后学习。</p>
+</blockquote>
+<h2 id="1-4-Objects类"><a href="#1-4-Objects类" class="headerlink" title="1.4 Objects类"></a>1.4 Objects类</h2><p>在刚才IDEA自动重写equals代码中，使用到了<code>java.util.Objects</code>类，那么这个类是什么呢？</p>
+<p>在<strong>JDK7</strong>添加了一个Objects工具类，它提供了一些方法来操作对象，它由一些静态的实用方法组成，这些方法是null-save（空指针安全的）或null-tolerant（容忍空指针的），用于计算对象的hashcode、返回对象的字符串表示形式、比较两个对象。</p>
+<p>在比较两个对象的时候，Object的equals方法容易抛出空指针异常，而Objects类中的equals方法就优化了这个问题。方法如下：</p>
+<ul>
+<li><code>public static boolean equals(Object a, Object b)</code>:判断两个对象是否相等。</li>
+</ul>
+<p>我们可以查看一下源码，学习一下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Object a, Object b)</span> &#123;  </span><br><span class="line">    <span class="keyword">return</span> (a == b) || (a != <span class="literal">null</span> &amp;&amp; a.equals(b));  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="第二章-日期时间类"><a href="#第二章-日期时间类" class="headerlink" title="第二章 日期时间类"></a>第二章 日期时间类</h1><h2 id="2-1-Date类"><a href="#2-1-Date类" class="headerlink" title="2.1 Date类"></a>2.1 Date类</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><code>java.util.Date</code>类 表示特定的瞬间，精确到毫秒。</p>
+<p>继续查阅Date类的描述，发现Date拥有多个构造函数，只是部分已经过时，但是其中有未过时的构造函数可以把毫秒值转成日期对象。</p>
+<ul>
+<li><code>public Date()</code>：分配Date对象并初始化此对象，以表示分配它的时间（精确到毫秒）。</li>
+<li><code>public Date(long date)</code>：分配Date对象并初始化此对象，以表示自从标准基准时间（称为“历元（epoch）”，即1970年1月1日00:00:00 GMT）以来的指定毫秒数。</li>
+</ul>
+<blockquote>
+<p>tips: 由于我们处于东八区，所以我们的基准时间为1970年1月1日8时0分0秒。</p>
+</blockquote>
+<p>简单来说：使用无参构造，可以自动设置当前系统时间的毫秒时刻；指定long类型的构造参数，可以自定义毫秒时刻。例如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo01Date</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 创建日期对象，把当前的时间</span></span><br><span class="line">        System.out.println(<span class="keyword">new</span> <span class="title class_">Date</span>()); <span class="comment">// Tue Jan 16 14:37:35 CST 2018</span></span><br><span class="line">        <span class="comment">// 创建日期对象，把当前的毫秒值转成日期对象</span></span><br><span class="line">        System.out.println(<span class="keyword">new</span> <span class="title class_">Date</span>(<span class="number">0L</span>)); <span class="comment">// Thu Jan 01 08:00:00 CST 1970</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>tips:在使用println方法时，会自动调用Date类中的toString方法。Date类对Object类中的toString方法进行了覆盖重写，所以结果为指定格式的字符串。</p>
+</blockquote>
+<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><p>Date类中的多数方法已经过时，常用的方法有：</p>
+<ul>
+<li><code>public long getTime()</code> 把日期对象转换成对应的时间毫秒值。</li>
+</ul>
+<h2 id="2-2-DateFormat类"><a href="#2-2-DateFormat类" class="headerlink" title="2.2 DateFormat类"></a>2.2 DateFormat类</h2><p><code>java.text.DateFormat</code> 是日期/时间格式化子类的抽象类，我们通过这个类可以帮我们完成日期和文本之间的转换,也就是可以在Date对象与String对象之间进行来回转换。</p>
+<ul>
+<li><strong>格式化</strong>：按照指定的格式，从Date对象转换为String对象。</li>
+<li><strong>解析</strong>：按照指定的格式，从String对象转换为Date对象。</li>
+</ul>
+<h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><p>由于DateFormat为抽象类，不能直接使用，所以需要常用的子类<code>java.text.SimpleDateFormat</code>。这个类需要一个模式（格式）来指定格式化或解析的标准。构造方法为：</p>
+<ul>
+<li><code>public SimpleDateFormat(String pattern)</code>：用给定的模式和默认语言环境的日期格式符号构造SimpleDateFormat。</li>
+</ul>
+<p>参数pattern是一个字符串，代表日期时间的自定义格式。</p>
+<h3 id="格式规则"><a href="#格式规则" class="headerlink" title="格式规则"></a>格式规则</h3><p>常用的格式规则为：</p>
+<table>
+<thead>
+<tr>
+<th>标识字母（区分大小写）</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>y</td>
+<td>年</td>
+</tr>
+<tr>
+<td>M</td>
+<td>月</td>
+</tr>
+<tr>
+<td>d</td>
+<td>日</td>
+</tr>
+<tr>
+<td>H</td>
+<td>时</td>
+</tr>
+<tr>
+<td>m</td>
+<td>分</td>
+</tr>
+<tr>
+<td>s</td>
+<td>秒</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>备注：更详细的格式规则，可以参考SimpleDateFormat类的API文档。</p>
+</blockquote>
+<p>创建SimpleDateFormat对象的代码如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.text.DateFormat;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo02SimpleDateFormat</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 对应的日期格式如：2018-01-16 15:06:38</span></span><br><span class="line">        <span class="type">DateFormat</span> <span class="variable">format</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="常用方法-1"><a href="#常用方法-1" class="headerlink" title="常用方法"></a>常用方法</h3><p>DateFormat类的常用方法有：</p>
+<ul>
+<li><code>public String format(Date date)</code>：将Date对象格式化为字符串。</li>
+<li><code>public Date parse(String source)</code>：将字符串解析为Date对象。</li>
+</ul>
+<h4 id="format方法"><a href="#format方法" class="headerlink" title="format方法"></a>format方法</h4><p>使用format方法的代码为：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.text.DateFormat;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> 把Date对象转换成String</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo03DateFormatMethod</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">        <span class="comment">// 创建日期格式化对象,在获取格式化对象时可以指定风格</span></span><br><span class="line">        <span class="type">DateFormat</span> <span class="variable">df</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy年MM月dd日&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> df.format(date);</span><br><span class="line">        System.out.println(str); <span class="comment">// 2008年1月23日</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="parse方法"><a href="#parse方法" class="headerlink" title="parse方法"></a>parse方法</h4><p>使用parse方法的代码为：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.text.DateFormat;</span><br><span class="line"><span class="keyword">import</span> java.text.ParseException;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> 把String转换成Date对象</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo04DateFormatMethod</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ParseException &#123;</span><br><span class="line">        <span class="type">DateFormat</span> <span class="variable">df</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy年MM月dd日&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;2018年12月11日&quot;</span>;</span><br><span class="line">        <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> df.parse(str);</span><br><span class="line">        System.out.println(date); <span class="comment">// Tue Dec 11 00:00:00 CST 2018</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-3-练习"><a href="#2-3-练习" class="headerlink" title="2.3 练习"></a>2.3 练习</h2><p>请使用日期时间相关的API，计算出一个人已经出生了多少天。</p>
+<p><strong>思路：</strong></p>
+<p>1.获取当前时间对应的毫秒值</p>
+<p>2.获取自己出生日期对应的毫秒值</p>
+<p>3.两个时间相减（当前时间– 出生日期）</p>
+<p><strong>代码实现：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">function</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">	System.out.println(<span class="string">&quot;请输入出生日期 格式 YYYY-MM-dd&quot;</span>);</span><br><span class="line">	<span class="comment">// 获取出生日期,键盘输入</span></span><br><span class="line">	<span class="type">String</span> <span class="variable">birthdayString</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in).next();</span><br><span class="line">	<span class="comment">// 将字符串日期,转成Date对象</span></span><br><span class="line">	<span class="comment">// 创建SimpleDateFormat对象,写日期模式</span></span><br><span class="line">	<span class="type">SimpleDateFormat</span> <span class="variable">sdf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd&quot;</span>);</span><br><span class="line">	<span class="comment">// 调用方法parse,字符串转成日期对象</span></span><br><span class="line">	<span class="type">Date</span> <span class="variable">birthdayDate</span> <span class="operator">=</span> sdf.parse(birthdayString);	</span><br><span class="line">	<span class="comment">// 获取今天的日期对象</span></span><br><span class="line">	<span class="type">Date</span> <span class="variable">todayDate</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>();	</span><br><span class="line">	<span class="comment">// 将两个日期转成毫秒值,Date类的方法getTime</span></span><br><span class="line">	<span class="type">long</span> <span class="variable">birthdaySecond</span> <span class="operator">=</span> birthdayDate.getTime();</span><br><span class="line">	<span class="type">long</span> <span class="variable">todaySecond</span> <span class="operator">=</span> todayDate.getTime();</span><br><span class="line">	<span class="type">long</span> <span class="variable">secone</span> <span class="operator">=</span> todaySecond-birthdaySecond;	</span><br><span class="line">	<span class="keyword">if</span> (secone &lt; <span class="number">0</span>)&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;还没出生呢&quot;</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		System.out.println(secone/<span class="number">1000</span>/<span class="number">60</span>/<span class="number">60</span>/<span class="number">24</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-4-Calendar类"><a href="#2-4-Calendar类" class="headerlink" title="2.4 Calendar类"></a>2.4 Calendar类</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>日历我们都见过</p>
+<p><img src="img\5.jpg" alt=""></p>
+<p><code>java.util.Calendar</code>是日历类，在Date后出现，替换掉了许多Date的方法。该类将所有可能用到的时间信息封装为静态成员变量，方便获取。日历类就是方便获取各个时间属性的。</p>
+<h3 id="获取方式"><a href="#获取方式" class="headerlink" title="获取方式"></a>获取方式</h3><p>Calendar为抽象类，由于语言敏感性，Calendar类在创建对象时并非直接创建，而是通过静态方法创建，返回子类对象，如下：</p>
+<p>Calendar静态方法</p>
+<ul>
+<li><code>public static Calendar getInstance()</code>：使用默认时区和语言环境获得一个日历</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Calendar;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo06CalendarInit</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Calendar</span> <span class="variable">cal</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="常用方法-2"><a href="#常用方法-2" class="headerlink" title="常用方法"></a>常用方法</h3><p>根据Calendar类的API文档，常用方法有：</p>
+<ul>
+<li><code>public int get(int field)</code>：返回给定日历字段的值。</li>
+<li><code>public void set(int field, int value)</code>：将给定的日历字段设置为给定值。</li>
+<li><code>public abstract void add(int field, int amount)</code>：根据日历的规则，为给定的日历字段添加或减去指定的时间量。</li>
+<li><code>public Date getTime()</code>：返回一个表示此Calendar时间值（从历元到现在的毫秒偏移量）的Date对象。</li>
+</ul>
+<p>Calendar类中提供很多成员常量，代表给定的日历字段：</p>
+<table>
+<thead>
+<tr>
+<th>字段值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>YEAR</td>
+<td>年</td>
+</tr>
+<tr>
+<td>MONTH</td>
+<td>月（从0开始，可以+1使用）</td>
+</tr>
+<tr>
+<td>DAY_OF_MONTH</td>
+<td>月中的天（几号）</td>
+</tr>
+<tr>
+<td>HOUR</td>
+<td>时（12小时制）</td>
+</tr>
+<tr>
+<td>HOUR_OF_DAY</td>
+<td>时（24小时制）</td>
+</tr>
+<tr>
+<td>MINUTE</td>
+<td>分</td>
+</tr>
+<tr>
+<td>SECOND</td>
+<td>秒</td>
+</tr>
+<tr>
+<td>DAY_OF_WEEK</td>
+<td>周中的天（周几，周日为1，可以-1使用）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="get-set方法"><a href="#get-set方法" class="headerlink" title="get/set方法"></a>get/set方法</h4><p>get方法用来获取指定字段的值，set方法用来设置指定字段的值，代码使用演示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Calendar;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CalendarUtil</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 创建Calendar对象</span></span><br><span class="line">        <span class="type">Calendar</span> <span class="variable">cal</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">        <span class="comment">// 设置年 </span></span><br><span class="line">        <span class="type">int</span> <span class="variable">year</span> <span class="operator">=</span> cal.get(Calendar.YEAR);</span><br><span class="line">        <span class="comment">// 设置月</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">month</span> <span class="operator">=</span> cal.get(Calendar.MONTH) + <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 设置日</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">dayOfMonth</span> <span class="operator">=</span> cal.get(Calendar.DAY_OF_MONTH);</span><br><span class="line">        System.out.print(year + <span class="string">&quot;年&quot;</span> + month + <span class="string">&quot;月&quot;</span> + dayOfMonth + <span class="string">&quot;日&quot;</span>);</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Calendar;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo07CalendarMethod</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Calendar</span> <span class="variable">cal</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">        cal.set(Calendar.YEAR, <span class="number">2020</span>);</span><br><span class="line">        System.out.print(year + <span class="string">&quot;年&quot;</span> + month + <span class="string">&quot;月&quot;</span> + dayOfMonth + <span class="string">&quot;日&quot;</span>); <span class="comment">// 2020年1月17日</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="add方法"><a href="#add方法" class="headerlink" title="add方法"></a>add方法</h4><p>add方法可以对指定日历字段的值进行加减操作，如果第二个参数为正数则加上偏移量，如果为负数则减去偏移量。代码如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Calendar;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo08CalendarMethod</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Calendar</span> <span class="variable">cal</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">        System.out.print(year + <span class="string">&quot;年&quot;</span> + month + <span class="string">&quot;月&quot;</span> + dayOfMonth + <span class="string">&quot;日&quot;</span>); <span class="comment">// 2018年1月17日</span></span><br><span class="line">        <span class="comment">// 使用add方法</span></span><br><span class="line">        cal.add(Calendar.DAY_OF_MONTH, <span class="number">2</span>); <span class="comment">// 加2天</span></span><br><span class="line">        cal.add(Calendar.YEAR, -<span class="number">3</span>); <span class="comment">// 减3年</span></span><br><span class="line">        System.out.print(year + <span class="string">&quot;年&quot;</span> + month + <span class="string">&quot;月&quot;</span> + dayOfMonth + <span class="string">&quot;日&quot;</span>); <span class="comment">// 2015年1月18日; </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="getTime方法"><a href="#getTime方法" class="headerlink" title="getTime方法"></a>getTime方法</h4><p>Calendar中的getTime方法并不是获取毫秒时刻，而是拿到对应的Date对象。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Calendar;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo09CalendarMethod</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Calendar</span> <span class="variable">cal</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">        <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> cal.getTime();</span><br><span class="line">        System.out.println(date); <span class="comment">// Tue Jan 16 16:03:09 CST 2018</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>小贴士：</p>
+<p>​     西方星期的开始为周日，中国为周一。</p>
+<p>​     在Calendar类中，月份的表示是以0-11代表1-12月。</p>
+<p>​     日期是有大小关系的，时间靠后，时间越大。</p>
+</blockquote>
+<h1 id="第三章-System类"><a href="#第三章-System类" class="headerlink" title="第三章 System类"></a>第三章 System类</h1><p><code>java.lang.System</code>类中提供了大量的静态方法，可以获取与系统相关的信息或系统级操作，在System类的API文档中，常用的方法有：</p>
+<ul>
+<li><code>public static long currentTimeMillis()</code>：返回以毫秒为单位的当前时间。</li>
+<li><code>public static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length)</code>：将数组中指定的数据拷贝到另一个数组中。</li>
+</ul>
+<h2 id="3-1-currentTimeMillis方法"><a href="#3-1-currentTimeMillis方法" class="headerlink" title="3.1 currentTimeMillis方法"></a>3.1 currentTimeMillis方法</h2><p>实际上，currentTimeMillis方法就是 获取当前系统时间与1970年01月01日00:00点之间的毫秒差值</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SystemDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">       	<span class="comment">//获取当前时间毫秒值</span></span><br><span class="line">        System.out.println(System.currentTimeMillis()); <span class="comment">// 1516090531144</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><p>验证for循环打印数字1-9999所需要使用的时间（毫秒）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SystemTest1</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">start</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">            System.out.println(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">long</span> <span class="variable">end</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">&quot;共耗时毫秒：&quot;</span> + (end - start));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-2-arraycopy方法"><a href="#3-2-arraycopy方法" class="headerlink" title="3.2 arraycopy方法"></a>3.2 arraycopy方法</h2><ul>
+<li><code>public static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length)</code>：将数组中指定的数据拷贝到另一个数组中。</li>
+</ul>
+<p>数组的拷贝动作是系统级的，性能很高。System.arraycopy方法具有5个参数，含义分别为：</p>
+<table>
+<thead>
+<tr>
+<th>参数序号</th>
+<th>参数名称</th>
+<th>参数类型</th>
+<th>参数含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>src</td>
+<td>Object</td>
+<td>源数组</td>
+</tr>
+<tr>
+<td>2</td>
+<td>srcPos</td>
+<td>int</td>
+<td>源数组索引起始位置</td>
+</tr>
+<tr>
+<td>3</td>
+<td>dest</td>
+<td>Object</td>
+<td>目标数组</td>
+</tr>
+<tr>
+<td>4</td>
+<td>destPos</td>
+<td>int</td>
+<td>目标数组索引起始位置</td>
+</tr>
+<tr>
+<td>5</td>
+<td>length</td>
+<td>int</td>
+<td>复制元素个数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h3><p>将src数组中前3个元素，复制到dest数组的前3个位置上复制元素前：src数组元素[1,2,3,4,5]，dest数组元素[6,7,8,9,10]复制元素后：src数组元素[1,2,3,4,5]，dest数组元素[1,2,3,9,10]</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo11SystemArrayCopy</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] src = <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">        <span class="type">int</span>[] dest = <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>&#125;;</span><br><span class="line">        System.arraycopy( src, <span class="number">0</span>, dest, <span class="number">0</span>, <span class="number">3</span>);</span><br><span class="line">        <span class="comment">/*代码运行后：两个数组中的元素发生了变化</span></span><br><span class="line"><span class="comment">         src数组元素[1,2,3,4,5]</span></span><br><span class="line"><span class="comment">         dest数组元素[1,2,3,9,10]</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="第四章-StringBuilder类"><a href="#第四章-StringBuilder类" class="headerlink" title="第四章 StringBuilder类"></a>第四章 StringBuilder类</h1><h2 id="4-1-字符串拼接问题"><a href="#4-1-字符串拼接问题" class="headerlink" title="4.1 字符串拼接问题"></a>4.1 字符串拼接问题</h2><p>由于String类的对象内容不可改变，所以每当进行字符串拼接时，总是会在内存中创建一个新的对象。例如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StringDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">        s += <span class="string">&quot;World&quot;</span>;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在API中对String类有这样的描述：字符串是常量，它们的值在创建后不能被更改。</p>
+<p>根据这句话分析我们的代码，其实总共产生了三个字符串，即<code>&quot;Hello&quot;</code>、<code>&quot;World&quot;</code>和<code>&quot;HelloWorld&quot;</code>。引用变量s首先指向<code>Hello</code>对象，最终指向拼接出来的新字符串对象，即<code>HelloWord</code> 。</p>
+<p><img src="img\6.png" alt=""></p>
+<p>由此可知，如果对字符串进行拼接操作，每次拼接，都会构建一个新的String对象，既耗时，又浪费空间。为了解决这一问题，可以使用<code>java.lang.StringBuilder</code>类。</p>
+<h2 id="4-2-StringBuilder概述"><a href="#4-2-StringBuilder概述" class="headerlink" title="4.2 StringBuilder概述"></a>4.2 StringBuilder概述</h2><p>查阅<code>java.lang.StringBuilder</code>的API，StringBuilder又称为可变字符序列，它是一个类似于 String 的字符串缓冲区，通过某些方法调用可以改变该序列的长度和内容。</p>
+<p>原来StringBuilder是个字符串的缓冲区，即它是一个容器，容器中可以装很多字符串。并且能够对其中的字符串进行各种操作。</p>
+<p>它的内部拥有一个数组用来存放字符串内容，进行字符串拼接时，直接在数组中加入新内容。StringBuilder会自动维护数组的扩容。原理如下图所示：(默认16字符空间，超过自动扩充)</p>
+<p><img src="img\7.png" alt="06-StringBuilder的原理"></p>
+<h2 id="4-3-构造方法"><a href="#4-3-构造方法" class="headerlink" title="4.3 构造方法"></a>4.3 构造方法</h2><p>根据StringBuilder的API文档，常用构造方法有2个：</p>
+<ul>
+<li><code>public StringBuilder()</code>：构造一个空的StringBuilder容器。</li>
+<li><code>public StringBuilder(String str)</code>：构造一个StringBuilder容器，并将字符串添加进去。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StringBuilderDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sb1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        System.out.println(sb1); <span class="comment">// (空白)</span></span><br><span class="line">        <span class="comment">// 使用带参构造</span></span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sb2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;itcast&quot;</span>);</span><br><span class="line">        System.out.println(sb2); <span class="comment">// itcast</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-4-常用方法"><a href="#4-4-常用方法" class="headerlink" title="4.4 常用方法"></a>4.4 常用方法</h2><p>StringBuilder常用的方法有2个：</p>
+<ul>
+<li><code>public StringBuilder append(...)</code>：添加任意类型数据的字符串形式，并返回当前对象自身。</li>
+<li><code>public String toString()</code>：将当前StringBuilder对象转换为String对象。</li>
+</ul>
+<h3 id="append方法"><a href="#append方法" class="headerlink" title="append方法"></a>append方法</h3><p>append方法具有多种重载形式，可以接收任意类型的参数。任何数据作为参数都会将对应的字符串内容添加到StringBuilder中。例如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo02StringBuilder</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">//创建对象</span></span><br><span class="line">		<span class="type">StringBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">		<span class="comment">//public StringBuilder append(任意类型)</span></span><br><span class="line">		<span class="type">StringBuilder</span> <span class="variable">builder2</span> <span class="operator">=</span> builder.append(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">		<span class="comment">//对比一下</span></span><br><span class="line">		System.out.println(<span class="string">&quot;builder:&quot;</span>+builder);</span><br><span class="line">		System.out.println(<span class="string">&quot;builder2:&quot;</span>+builder2);</span><br><span class="line">		System.out.println(builder == builder2); <span class="comment">//true</span></span><br><span class="line">	    <span class="comment">// 可以添加 任何类型</span></span><br><span class="line">		builder.append(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">		builder.append(<span class="string">&quot;world&quot;</span>);</span><br><span class="line">		builder.append(<span class="literal">true</span>);</span><br><span class="line">		builder.append(<span class="number">100</span>);</span><br><span class="line">		<span class="comment">// 在我们开发中，会遇到调用一个方法后，返回一个对象的情况。然后使用返回的对象继续调用方法。</span></span><br><span class="line">        <span class="comment">// 这种时候，我们就可以把代码现在一起，如append方法一样，代码如下</span></span><br><span class="line">		<span class="comment">//链式编程</span></span><br><span class="line">		builder.append(<span class="string">&quot;hello&quot;</span>).append(<span class="string">&quot;world&quot;</span>).append(<span class="literal">true</span>).append(<span class="number">100</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;builder:&quot;</span>+builder);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>备注：StringBuilder已经覆盖重写了Object当中的toString方法。</p>
+</blockquote>
+<h3 id="toString方法"><a href="#toString方法" class="headerlink" title="toString方法"></a>toString方法</h3><p>通过toString方法，StringBuilder对象将会转换为不可变的String对象。如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo16StringBuilder</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 链式创建</span></span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> 				      <span class="title class_">StringBuilder</span>(<span class="string">&quot;Hello&quot;</span>).append(<span class="string">&quot;World&quot;</span>).append(<span class="string">&quot;Java&quot;</span>);</span><br><span class="line">        <span class="comment">// 调用方法</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> builder.toString();</span><br><span class="line">        System.out.println(str); <span class="comment">// HelloWorldJava</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="第五章-包装类"><a href="#第五章-包装类" class="headerlink" title="第五章 包装类"></a>第五章 包装类</h1><h2 id="5-1-概述"><a href="#5-1-概述" class="headerlink" title="5.1 概述"></a>5.1 概述</h2><p>Java提供了两个类型系统，基本类型与引用类型，使用基本类型在于效率，然而很多情况，会创建对象使用，因为对象可以做更多的功能，如果想要我们的基本类型像对象一样操作，就可以使用基本类型对应的包装类，如下：</p>
+<table>
+<thead>
+<tr>
+<th>基本类型</th>
+<th>对应的包装类（位于java.lang包中）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>byte</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>short</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>int</td>
+<td><strong>Integer</strong></td>
+</tr>
+<tr>
+<td>long</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>Double</td>
+</tr>
+<tr>
+<td>char</td>
+<td><strong>Character</strong></td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>Boolean</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-2-装箱与拆箱"><a href="#5-2-装箱与拆箱" class="headerlink" title="5.2 装箱与拆箱"></a>5.2 装箱与拆箱</h2><p>基本类型与对应的包装类对象之间，来回转换的过程称为”装箱“与”拆箱“：</p>
+<ul>
+<li><p><strong>装箱</strong>：从基本类型转换为对应的包装类对象。</p>
+</li>
+<li><p><strong>拆箱</strong>：从包装类对象转换为对应的基本类型。</p>
+</li>
+</ul>
+<p>用Integer与 int为例：（看懂代码即可）</p>
+<p>基本数值—-&gt;包装对象[<strong>装箱</strong>]</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">i</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Integer</span>(<span class="number">4</span>);<span class="comment">//使用构造函数函数</span></span><br><span class="line"><span class="type">Integer</span> <span class="variable">iii</span> <span class="operator">=</span> Integer.valueOf(<span class="number">4</span>);<span class="comment">//使用包装类中的valueOf方法</span></span><br></pre></td></tr></table></figure>
+<p>包装对象—-&gt;基本数值[<strong>拆箱</strong>]</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> i.intValue();</span><br></pre></td></tr></table></figure>
+<h2 id="5-3自动装箱与自动拆箱"><a href="#5-3自动装箱与自动拆箱" class="headerlink" title="5.3自动装箱与自动拆箱"></a>5.3自动装箱与自动拆箱</h2><p>由于我们经常要做基本类型与包装类之间的转换，从Java 5（JDK 1.5）开始，基本类型与包装类的装箱、拆箱动作可以自动完成。例如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">4</span>;<span class="comment">//自动装箱。相当于Integer i = Integer.valueOf(4);</span></span><br><span class="line">i = i + <span class="number">5</span>;<span class="comment">//等号右边：将i对象转成基本数值(自动拆箱) i.intValue() + 5;</span></span><br><span class="line"><span class="comment">//加法运算完成后，再次装箱，把基本数值转成对象。</span></span><br></pre></td></tr></table></figure>
+<h2 id="5-3-基本类型与字符串之间的转换"><a href="#5-3-基本类型与字符串之间的转换" class="headerlink" title="5.3 基本类型与字符串之间的转换"></a>5.3 基本类型与字符串之间的转换</h2><h3 id="基本类型转换为String"><a href="#基本类型转换为String" class="headerlink" title="基本类型转换为String"></a>基本类型转换为String</h3><p>   基本类型转换String总共有三种方式，查看课后资料可以得知，这里只讲最简单的一种方式： </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">基本类型直接与””相连接即可；如：34+&quot;&quot;</span><br></pre></td></tr></table></figure>
+<p>String转换成对应的基本类型 </p>
+<p>除了Character类之外，其他所有包装类都具有parseXxx静态方法可以将字符串参数转换为对应的基本类型：</p>
+<ul>
+<li><code>public static byte parseByte(String s)</code>：将字符串参数转换为对应的byte基本类型。</li>
+<li><code>public static short parseShort(String s)</code>：将字符串参数转换为对应的short基本类型。</li>
+<li><code>public static int parseInt(String s)</code>：将字符串参数转换为对应的int基本类型。</li>
+<li><code>public static long parseLong(String s)</code>：将字符串参数转换为对应的long基本类型。</li>
+<li><code>public static float parseFloat(String s)</code>：将字符串参数转换为对应的float基本类型。</li>
+<li><code>public static double parseDouble(String s)</code>：将字符串参数转换为对应的double基本类型。</li>
+<li><code>public static boolean parseBoolean(String s)</code>：将字符串参数转换为对应的boolean基本类型。</li>
+</ul>
+<p>代码使用（仅以Integer类的静态方法parseXxx为例）如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo18WrapperParse</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> Integer.parseInt(<span class="string">&quot;100&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意:如果字符串参数的内容无法正确转换为对应的基本类型，则会抛出<code>java.lang.NumberFormatException</code>异常。</p>
+</blockquote>
+]]></content>
+  </entry>
+  <entry>
+    <title>Thymeleaf</title>
+    <url>/2022/12/26/Thymeleaf/</url>
+    <content><![CDATA[<h3 id="为什么是Thymeleaf"><a href="#为什么是Thymeleaf" class="headerlink" title="为什么是Thymeleaf"></a>为什么是Thymeleaf</h3><p>目前Java比较流行的模板引擎有Thymeleaf和Freemarker，Thymeleaf的话更适合当前的人员分工问题，回忆一下以前的Jsp页面，必须要动态渲染才能看到真实的效果，写页面的和写后端的分工不太明确</p>
+<p>Thymeleaf是动静分离的，页面中的动态标签是需要传递有数据的时候才会渲染，不然就是原本默认的静态的样子</p>
+<p>举一个例子<code>th:text=&quot;$&#123;title&#125;&quot;</code>是一个动态标签，当传递了title这个数据，页面就会渲染这个标签，如果没有传递这个参数，就会显示原本的网页结构<code>&lt;title&gt;默认的标题&lt;/title&gt;</code>,所以开发静态页面的时候的是前端工程师完全可以独立进行的</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;ch&quot;</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">title</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;title&#125;&quot;</span>&gt;</span>默认的标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>thymeleaf的语法和vue是有点类似的，很容易上手，下面就跟着我快速入门吧！</p>
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>直接创建一个springboot的模板项目就行了</p>
+<p><img src="https://img.lookroot.cn/blog/202101/23/141357-772186.png" alt="image-20210123141356383"></p>
+<p>需要引入的依赖文件</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="开启自动编译"><a href="#开启自动编译" class="headerlink" title="开启自动编译"></a>开启自动编译</h3><p>首先开发模式禁用页面缓存<code>application.yml</code></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8001</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">thymeleaf:</span></span><br><span class="line">    <span class="attr">cache:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>然后修改一下运行配置</p>
+<p><img src="https://img.lookroot.cn/blog/202101/20/003357-326412.png" alt="image-20210120003356158"></p>
+<p><img src="https://img.lookroot.cn/blog/202101/20/003419-309294.png" alt="image-20210120003419153"></p>
+<p>此时我们修改了页面文件后，直接刷新就能看到效果了</p>
+<h3 id="创建IDEA的模板"><a href="#创建IDEA的模板" class="headerlink" title="创建IDEA的模板"></a>创建IDEA的模板</h3><p>我们可以给IDEA创建一个页面模板，这样每次创建页面文件就带上基本的结构了</p>
+<p><img src="https://img.lookroot.cn/blog/202101/20/003911-716212.png" alt="image-20210120003910383"></p>
+<p>模板内容</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;ch&quot;</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这样我们在文件夹鼠标右键就多了一个选择</p>
+<p><img src="https://img.lookroot.cn/blog/202101/20/004016-830999.png" alt="image-20210120004015485"></p>
+<h2 id="Thymeleaf常用语法"><a href="#Thymeleaf常用语法" class="headerlink" title="Thymeleaf常用语法"></a>Thymeleaf常用语法</h2><h3 id="语法标记"><a href="#语法标记" class="headerlink" title="语法标记"></a>语法标记</h3><p><img src="https://img.lookroot.cn/blog/202101/24/000024-245091.png" alt="image-20210124000024217"></p>
+<h3 id="th-text，th-content"><a href="#th-text，th-content" class="headerlink" title="th:text，th:content"></a>th:text，th:content</h3><p><code>th:text</code>可以动态替换标签原本的内容</p>
+<p>在<code>templates</code>创建页面<code>index.html</code>,<code>$&#123;&#125;</code>里面可以写</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;ch&quot;</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;title&#125;&quot;</span>&gt;</span>默认的标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>写一个测试控制器<code>IndexController</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">IndexController</span> &#123;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;/index&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">index</span><span class="params">(Model model)</span> &#123;</span><br><span class="line">        model.addAttribute(<span class="string">&quot;title&quot;</span>, <span class="string">&quot;传递的标题&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;index&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时如果我们直接打开<code>index.html</code>这个文件而不是通过SpringBoot的控制器去打开它</p>
+<p>看下源代码，可以发现动态标签是没有渲染出来的，这就是动静分离</p>
+<p><img src="https://img.lookroot.cn/blog/202101/23/175938-325132.png" alt="image-20210123175937168"></p>
+<p>然后我们通过控制器打开<code>http://localhost:8001/index</code>,看看源码</p>
+<p><img src="https://img.lookroot.cn/blog/202101/23/180038-251130.png" alt="image-20210123180037868"></p>
+<p>同理我们使用<code>th:content</code>标签来渲染页面描述和页面关键字，这是在昨天的实战里面讲到过的</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;title&#125;&quot;</span>&gt;</span>默认的标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;description&quot;</span> <span class="attr">th:content</span>=<span class="string">&quot;$&#123;description&#125;&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;keywords&quot;</span> <span class="attr">th:content</span>=<span class="string">&quot;$&#123;keywords&#125;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/index&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">index</span><span class="params">(Model model)</span> &#123;</span><br><span class="line">    model.addAttribute(<span class="string">&quot;title&quot;</span>, <span class="string">&quot;传递的标题&quot;</span>);</span><br><span class="line">    model.addAttribute(<span class="string">&quot;description&quot;</span>, <span class="string">&quot;传递的描述&quot;</span>);</span><br><span class="line">    model.addAttribute(<span class="string">&quot;keywords&quot;</span>, <span class="string">&quot;传递的关键字&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;index&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>假如我们的 th:text 标签里面需要拼接字符串<code>$&#123;title&#125;</code>可以使用<code>||</code>来包裹</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">title</span> <span class="attr">th:text</span>=<span class="string">&quot;|lookroot-$&#123;title&#125;|&quot;</span>&gt;</span>默认的标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="支持渲染的属性"><a href="#支持渲染的属性" class="headerlink" title="支持渲染的属性"></a>支持渲染的属性</h3><p>这类属性很多，每个属性都针对特定的HTML5属性：</p>
+<table>
+<thead>
+<tr>
+<th><code>th:abbr</code></th>
+<th><code>th:accept</code></th>
+<th><code>th:accept-charset</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>th:accesskey</code></td>
+<td><code>th:action</code></td>
+<td><code>th:align</code></td>
+</tr>
+<tr>
+<td><code>th:alt</code></td>
+<td><code>th:archive</code></td>
+<td><code>th:audio</code></td>
+</tr>
+<tr>
+<td><code>th:autocomplete</code></td>
+<td><code>th:axis</code></td>
+<td><code>th:background</code></td>
+</tr>
+<tr>
+<td><code>th:bgcolor</code></td>
+<td><code>th:border</code></td>
+<td><code>th:cellpadding</code></td>
+</tr>
+<tr>
+<td><code>th:cellspacing</code></td>
+<td><code>th:challenge</code></td>
+<td><code>th:charset</code></td>
+</tr>
+<tr>
+<td><code>th:cite</code></td>
+<td><code>th:class</code></td>
+<td><code>th:classid</code></td>
+</tr>
+<tr>
+<td><code>th:codebase</code></td>
+<td><code>th:codetype</code></td>
+<td><code>th:cols</code></td>
+</tr>
+<tr>
+<td><code>th:colspan</code></td>
+<td><code>th:compact</code></td>
+<td><code>th:content</code></td>
+</tr>
+<tr>
+<td><code>th:contenteditable</code></td>
+<td><code>th:contextmenu</code></td>
+<td><code>th:data</code></td>
+</tr>
+<tr>
+<td><code>th:datetime</code></td>
+<td><code>th:dir</code></td>
+<td><code>th:draggable</code></td>
+</tr>
+<tr>
+<td><code>th:dropzone</code></td>
+<td><code>th:enctype</code></td>
+<td><code>th:for</code></td>
+</tr>
+<tr>
+<td><code>th:form</code></td>
+<td><code>th:formaction</code></td>
+<td><code>th:formenctype</code></td>
+</tr>
+<tr>
+<td><code>th:formmethod</code></td>
+<td><code>th:formtarget</code></td>
+<td><code>th:fragment</code></td>
+</tr>
+<tr>
+<td><code>th:frame</code></td>
+<td><code>th:frameborder</code></td>
+<td><code>th:headers</code></td>
+</tr>
+<tr>
+<td><code>th:height</code></td>
+<td><code>th:high</code></td>
+<td><code>th:href</code></td>
+</tr>
+<tr>
+<td><code>th:hreflang</code></td>
+<td><code>th:hspace</code></td>
+<td><code>th:http-equiv</code></td>
+</tr>
+<tr>
+<td><code>th:icon</code></td>
+<td><code>th:id</code></td>
+<td><code>th:inline</code></td>
+</tr>
+<tr>
+<td><code>th:keytype</code></td>
+<td><code>th:kind</code></td>
+<td><code>th:label</code></td>
+</tr>
+<tr>
+<td><code>th:lang</code></td>
+<td><code>th:list</code></td>
+<td><code>th:longdesc</code></td>
+</tr>
+<tr>
+<td><code>th:low</code></td>
+<td><code>th:manifest</code></td>
+<td><code>th:marginheight</code></td>
+</tr>
+<tr>
+<td><code>th:marginwidth</code></td>
+<td><code>th:max</code></td>
+<td><code>th:maxlength</code></td>
+</tr>
+<tr>
+<td><code>th:media</code></td>
+<td><code>th:method</code></td>
+<td><code>th:min</code></td>
+</tr>
+<tr>
+<td><code>th:name</code></td>
+<td><code>th:onabort</code></td>
+<td><code>th:onafterprint</code></td>
+</tr>
+<tr>
+<td><code>th:onbeforeprint</code></td>
+<td><code>th:onbeforeunload</code></td>
+<td><code>th:onblur</code></td>
+</tr>
+<tr>
+<td><code>th:oncanplay</code></td>
+<td><code>th:oncanplaythrough</code></td>
+<td><code>th:onchange</code></td>
+</tr>
+<tr>
+<td><code>th:onclick</code></td>
+<td><code>th:oncontextmenu</code></td>
+<td><code>th:ondblclick</code></td>
+</tr>
+<tr>
+<td><code>th:ondrag</code></td>
+<td><code>th:ondragend</code></td>
+<td><code>th:ondragenter</code></td>
+</tr>
+<tr>
+<td><code>th:ondragleave</code></td>
+<td><code>th:ondragover</code></td>
+<td><code>th:ondragstart</code></td>
+</tr>
+<tr>
+<td><code>th:ondrop</code></td>
+<td><code>th:ondurationchange</code></td>
+<td><code>th:onemptied</code></td>
+</tr>
+<tr>
+<td><code>th:onended</code></td>
+<td><code>th:onerror</code></td>
+<td><code>th:onfocus</code></td>
+</tr>
+<tr>
+<td><code>th:onformchange</code></td>
+<td><code>th:onforminput</code></td>
+<td><code>th:onhashchange</code></td>
+</tr>
+<tr>
+<td><code>th:oninput</code></td>
+<td><code>th:oninvalid</code></td>
+<td><code>th:onkeydown</code></td>
+</tr>
+<tr>
+<td><code>th:onkeypress</code></td>
+<td><code>th:onkeyup</code></td>
+<td><code>th:onload</code></td>
+</tr>
+<tr>
+<td><code>th:onloadeddata</code></td>
+<td><code>th:onloadedmetadata</code></td>
+<td><code>th:onloadstart</code></td>
+</tr>
+<tr>
+<td><code>th:onmessage</code></td>
+<td><code>th:onmousedown</code></td>
+<td><code>th:onmousemove</code></td>
+</tr>
+<tr>
+<td><code>th:onmouseout</code></td>
+<td><code>th:onmouseover</code></td>
+<td><code>th:onmouseup</code></td>
+</tr>
+<tr>
+<td><code>th:onmousewheel</code></td>
+<td><code>th:onoffline</code></td>
+<td><code>th:ononline</code></td>
+</tr>
+<tr>
+<td><code>th:onpause</code></td>
+<td><code>th:onplay</code></td>
+<td><code>th:onplaying</code></td>
+</tr>
+<tr>
+<td><code>th:onpopstate</code></td>
+<td><code>th:onprogress</code></td>
+<td><code>th:onratechange</code></td>
+</tr>
+<tr>
+<td><code>th:onreadystatechange</code></td>
+<td><code>th:onredo</code></td>
+<td><code>th:onreset</code></td>
+</tr>
+<tr>
+<td><code>th:onresize</code></td>
+<td><code>th:onscroll</code></td>
+<td><code>th:onseeked</code></td>
+</tr>
+<tr>
+<td><code>th:onseeking</code></td>
+<td><code>th:onselect</code></td>
+<td><code>th:onshow</code></td>
+</tr>
+<tr>
+<td><code>th:onstalled</code></td>
+<td><code>th:onstorage</code></td>
+<td><code>th:onsubmit</code></td>
+</tr>
+<tr>
+<td><code>th:onsuspend</code></td>
+<td><code>th:ontimeupdate</code></td>
+<td><code>th:onundo</code></td>
+</tr>
+<tr>
+<td><code>th:onunload</code></td>
+<td><code>th:onvolumechange</code></td>
+<td><code>th:onwaiting</code></td>
+</tr>
+<tr>
+<td><code>th:optimum</code></td>
+<td><code>th:pattern</code></td>
+<td><code>th:placeholder</code></td>
+</tr>
+<tr>
+<td><code>th:poster</code></td>
+<td><code>th:preload</code></td>
+<td><code>th:radiogroup</code></td>
+</tr>
+<tr>
+<td><code>th:rel</code></td>
+<td><code>th:rev</code></td>
+<td><code>th:rows</code></td>
+</tr>
+<tr>
+<td><code>th:rowspan</code></td>
+<td><code>th:rules</code></td>
+<td><code>th:sandbox</code></td>
+</tr>
+<tr>
+<td><code>th:scheme</code></td>
+<td><code>th:scope</code></td>
+<td><code>th:scrolling</code></td>
+</tr>
+<tr>
+<td><code>th:size</code></td>
+<td><code>th:sizes</code></td>
+<td><code>th:span</code></td>
+</tr>
+<tr>
+<td><code>th:spellcheck</code></td>
+<td><code>th:src</code></td>
+<td><code>th:srclang</code></td>
+</tr>
+<tr>
+<td><code>th:standby</code></td>
+<td><code>th:start</code></td>
+<td><code>th:step</code></td>
+</tr>
+<tr>
+<td><code>th:style</code></td>
+<td><code>th:summary</code></td>
+<td><code>th:tabindex</code></td>
+</tr>
+<tr>
+<td><code>th:target</code></td>
+<td><code>th:title</code></td>
+<td><code>th:type</code></td>
+</tr>
+<tr>
+<td><code>th:usemap</code></td>
+<td><code>th:value</code></td>
+<td><code>th:valuetype</code></td>
+</tr>
+<tr>
+<td><code>th:vspace</code></td>
+<td><code>th:width</code></td>
+<td><code>th:wrap</code></td>
+</tr>
+<tr>
+<td><code>th:xmlbase</code></td>
+<td><code>th:xmllang</code></td>
+<td><code>th:xmlspace</code></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>th:async</code></th>
+<th><code>th:autofocus</code></th>
+<th><code>th:autoplay</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>th:checked</code></td>
+<td><code>th:controls</code></td>
+<td><code>th:declare</code></td>
+</tr>
+<tr>
+<td><code>th:default</code></td>
+<td><code>th:defer</code></td>
+<td><code>th:disabled</code></td>
+</tr>
+<tr>
+<td><code>th:formnovalidate</code></td>
+<td><code>th:hidden</code></td>
+<td><code>th:ismap</code></td>
+</tr>
+<tr>
+<td><code>th:loop</code></td>
+<td><code>th:multiple</code></td>
+<td><code>th:novalidate</code></td>
+</tr>
+<tr>
+<td><code>th:nowrap</code></td>
+<td><code>th:open</code></td>
+<td><code>th:pubdate</code></td>
+</tr>
+<tr>
+<td><code>th:readonly</code></td>
+<td><code>th:required</code></td>
+<td><code>th:reversed</code></td>
+</tr>
+<tr>
+<td><code>th:scoped</code></td>
+<td><code>th:seamless</code></td>
+<td><code>th:selected</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="渲染对象"><a href="#渲染对象" class="headerlink" title="渲染对象"></a>渲染对象</h3><p>创建一个基本对象<code>UserVO</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserVO</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="keyword">private</span> Integer sex;</span><br><span class="line">    <span class="keyword">private</span> Boolean isVip;</span><br><span class="line">    <span class="keyword">private</span> Date createTime;</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; tags;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>新建一个方法<code>basic</code>，将user对象传输到页面中</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/basicTrain&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">basic</span><span class="params">(Model model)</span> &#123;</span><br><span class="line">    <span class="type">UserVO</span> <span class="variable">userVO</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserVO</span>();</span><br><span class="line">    userVO.setAge(<span class="number">21</span>);</span><br><span class="line">    userVO.setSex(<span class="number">1</span>);</span><br><span class="line">    userVO.setCreateTime(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">    userVO.setTags(Arrays.asList(<span class="string">&quot;Java&quot;</span>, <span class="string">&quot;PHP&quot;</span>, <span class="string">&quot;Node&quot;</span>));</span><br><span class="line">    userVO.setUsername(<span class="string">&quot;lookroot&quot;</span>);</span><br><span class="line">    model.addAttribute(<span class="string">&quot;user&quot;</span>, userVO);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;basic&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>新建<code>basic.html</code>，此时如果我们想渲染User这个对象的信息我们可以这样</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">	&lt;h2 th:text=<span class="string">&quot;$&#123;user.getUsername()&#125;&quot;</span>&gt;&lt;/h2&gt;</span><br><span class="line">	&lt;p th:text=<span class="string">&quot;$&#123;user.getAge()&#125;&quot;</span>&gt;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>也可以将User定义为临时变量，接着使用<code>*&#123;xxx&#125;</code>就能取到值了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;div th:object=<span class="string">&quot;$&#123;user&#125;&quot;</span>&gt;</span><br><span class="line">	&lt;h2 th:text=<span class="string">&quot;*&#123;username&#125;&quot;</span>&gt;&lt;/h2&gt;</span><br><span class="line">	&lt;p th:text=<span class="string">&quot;*&#123;age&#125;&quot;</span>&gt;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>还可以不使用get的方式，直接使用属性名</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;user.username&#125;&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="th-if"><a href="#th-if" class="headerlink" title="th:if"></a>th:if</h3><p><code>th:if</code>通过布尔值决定这个元素是否渲染</p>
+<p>比如：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">th:if</span>=<span class="string">&quot;$&#123;user.isVip&#125;&quot;</span>&gt;</span>会员<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="th-each"><a href="#th-each" class="headerlink" title="th:each"></a>th:each</h3><p><code>th:each</code>可以迭代循环出数据，前面我们User对象里面的tags是一个数组，我们来渲染一下</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">li</span> <span class="attr">th:each</span>=<span class="string">&quot;tag:$&#123;user.getTags()&#125;&quot;</span> </span></span><br><span class="line"><span class="tag">       <span class="attr">th:text</span>=<span class="string">&quot;$&#123;tag&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>状态变量在<code>th:each</code>属性中定义，并且包含以下数据：</p>
+<ul>
+<li>当前的<em>迭代索引</em>，从0开始。这是<code>index</code>属性。</li>
+<li>从1开始的当前<em>迭代索引</em>。这是<code>count</code>属性。</li>
+<li>迭代变量中元素的总数。这是<code>size</code>财产。</li>
+<li>每次迭代的<em>iter变量</em>。这是<code>current</code>财产。</li>
+<li>当前迭代是偶数还是奇数。这些是<code>even/odd</code>布尔属性。</li>
+<li>当前迭代是否是第一个。这是<code>first</code>布尔属性。</li>
+<li>当前迭代是否为最后一次。这是<code>last</code>布尔属性。</li>
+</ul>
+<h3 id="th-switch"><a href="#th-switch" class="headerlink" title="th:switch"></a>th:switch</h3><p><code>th:switch</code>选择语句</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:switch</span>=<span class="string">&quot;$&#123;user.getSex()&#125;&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">th:case</span>=<span class="string">&quot;&#x27;1&#x27;&quot;</span>&gt;</span>男<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">th:case</span>=<span class="string">&quot;&#x27;2&#x27;&quot;</span>&gt;</span>女<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">th:case</span>=<span class="string">&quot;*&quot;</span>&gt;</span>默认<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="url"><a href="#url" class="headerlink" title="url"></a>url</h3><p>如果在springboot中需要引入static目录下的静态资源可以使用<code>@&#123;xxx&#125;</code>的方式</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">th:href</span>=<span class="string">&quot;@&#123;/app.css&#125;&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="JavaScript动态渲染"><a href="#JavaScript动态渲染" class="headerlink" title="JavaScript动态渲染"></a>JavaScript动态渲染</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">th:inline</span>=<span class="string">&quot;javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> user = <span class="comment">/*[[$&#123;user&#125;]]*/</span> &#123;&#125;;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(user);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>同理css也是可以的</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">th:inline</span>=<span class="string">&quot;css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-class">.main</span>\ elems &#123;</span></span><br><span class="line"><span class="language-css">      <span class="attribute">text-align</span>: <span class="comment">/*[[$&#123;align&#125;]]*/</span> left;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="碎片（组件）"><a href="#碎片（组件）" class="headerlink" title="碎片（组件）"></a>碎片（组件）</h2><p>日常开发中呢我们经常将有些可以复用的部分抽离出来</p>
+<p>新建一个<code>component.html</code>,一个文件里面可以写多个碎片，使用<code>th:fragment</code>来定义</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">footer</span> <span class="attr">th:fragment</span>=<span class="string">&quot;com1&quot;</span>&gt;</span></span><br><span class="line">	this is com1</span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span> <span class="attr">id</span>=<span class="string">&quot;com2&quot;</span>&gt;</span></span><br><span class="line">	this is com2</span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用碎片主要有两种方式<code>replace</code>和<code>insert</code>,在<code>index.html</code>中编写</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--replace--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:replace</span>=<span class="string">&quot;~&#123;component::com1&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--insert--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:insert</span>=<span class="string">&quot;~&#123;component::com1&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这两种方式的区别就是，replace会将新标签完全替换原本的标签，也就是说原本写<code>th:replace</code>属性的标签就不会渲染出来，<code>insert</code>是往这个地方插入标签</p>
+<p>我们看下上面两种方式渲染出来的区别吧</p>
+<p><img src="https://img.lookroot.cn/blog/202101/24/135940-632521.png" alt="image-20210124135939265"></p>
+<h3 id="直接通过选择器使用"><a href="#直接通过选择器使用" class="headerlink" title="直接通过选择器使用"></a>直接通过选择器使用</h3><p>对于碎片，甚至可以不定义，我们再次添加一个 碎片</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">footer</span> <span class="attr">id</span>=<span class="string">&quot;com2&quot;</span>&gt;</span></span><br><span class="line">	this is com2</span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后使用它</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:insert</span>=<span class="string">&quot;~&#123;component::#com2&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="注释类型"><a href="#注释类型" class="headerlink" title="注释类型"></a>注释类型</h3><p>在碎片里面，我们是可以使用控制传递的数据的，比如上面的User对象，但是开发工具在<code>component.html</code>页面中可能不能识别到User对象，我们可以打一个注释</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--/*@thymesVar id=&quot;user&quot; type=&quot;cn.lookroot.loop.thymeleafdemo.vo.UserVO&quot;*/--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;user.getUsername()&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="组件传递参数"><a href="#组件传递参数" class="headerlink" title="组件传递参数"></a>组件传递参数</h3><p>组件也是可以传递数据的</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:fragment</span>=<span class="string">&quot;com3(message)&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;message&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用的时候</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:insert</span>=<span class="string">&quot;~&#123;component::com3(&#x27;传递数据&#x27;)&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="局部替换组件"><a href="#局部替换组件" class="headerlink" title="局部替换组件"></a>局部替换组件</h3><p>我们使用一个组件的时候，想要局部替换掉这个组件里面的部分内容该怎么做呢？通过传递参数的方式传递一个组件过来，并把这个组件替换原本的一部分</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:fragment</span>=<span class="string">&quot;com4(message)&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">p</span> <span class="attr">th:replace</span>=<span class="string">&quot;$&#123;message&#125;&quot;</span>&gt;</span>原本的message<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用的时候</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:insert</span>=<span class="string">&quot;~&#123;component::com4(~&#123;::#message&#125;)&#125;&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;message&quot;</span>&gt;</span>替换的message<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="基本对象"><a href="#基本对象" class="headerlink" title="基本对象"></a>基本对象</h2><h3 id="ctx：上下文对象"><a href="#ctx：上下文对象" class="headerlink" title="#ctx：上下文对象"></a><strong>#ctx</strong>：上下文对象</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">$&#123;#ctx.request&#125;</span><br><span class="line">$&#123;#ctx.response&#125;</span><br><span class="line">$&#123;#ctx.session&#125;</span><br><span class="line">$&#123;#ctx.servletContext&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="请求-会话属性"><a href="#请求-会话属性" class="headerlink" title="请求/会话属性"></a>请求/会话属性</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">$&#123;session.xxx&#125;                 </span><br><span class="line">$&#123;application.xxx&#125;          </span><br><span class="line">$&#123;#request.getAttribute(&#x27;xxx&#x27;)&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h3><p>在thymeleaf里面是可以直接使用一些Java的函数的，并且你可以通过传递参数的方式把一些自己写的方法传递给页面，在里面调用也是可以的</p>
+<p>一些可以直接的使用函数</p>
+<ul>
+<li>#dates</li>
+<li>#calendars</li>
+<li>#strings</li>
+<li>#numbers</li>
+<li>#objects</li>
+<li>#bools</li>
+<li>#arrays</li>
+<li>#lists</li>
+<li>#sets</li>
+<li>#maps</li>
+<li>#aggregates</li>
+</ul>
+<p>以日期格式化来举例</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--日期格式化--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;#dates.format(user.createTime,&#x27;yyyy-MM-dd HH:mm&#x27;)&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2022/12/25/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
   </entry>
 </search>
